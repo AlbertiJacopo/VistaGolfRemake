@@ -6,7 +6,6 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField] private float m_DeadZoneSwingRadius;
     [SerializeField] private float m_DeadZoneBallRadius;
-    //private DirectionType m_DirectionType;
     private GameObject m_Ball;
     private Vector2 m_TouchStartPosition;
     private Vector2 m_TouchEndPosition;
@@ -14,7 +13,7 @@ public class InputManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
