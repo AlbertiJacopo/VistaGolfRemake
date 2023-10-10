@@ -42,12 +42,19 @@ public class InputManager : MonoBehaviour
                 }
                 if (!isInInputZone)
                 {
-                    GameManager.instance.EventManager.TriggerEvent(Constants.CAMERA_MOVEMENT, m_TouchStartPosition, touch);
+                    GameManager.instance.EventManager.TriggerEvent(Constants.START_CAMERA_MOVEMENT, m_TouchStartPosition, touch);
                 }
             }
-            else if((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) && isInInputZone)
+            else if(touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
             {
-                GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, touchEndPosition);
+                if (isInInputZone)
+                {
+                    GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, touchEndPosition);
+                }
+                else
+                {
+                    GameManager.instance.EventManager.TriggerEvent(Constants.STOP_CAMERA_MOVEMENT);
+                }
             }
         }
         //Gets the 2 start positions and triggers camera zooming
