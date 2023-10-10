@@ -58,15 +58,19 @@ public class InputManager : MonoBehaviour
             }
         }
         //Gets the 2 start positions and triggers camera zooming
-        else if(Input.touchCount == 2)
+        else if(!CheckInInputZoneBall() && Input.touchCount == 2)
         {
             Touch touch = Input.GetTouch(0);
             Touch touch2 = Input.GetTouch(1);
-            m_TouchStartPosition = GetTouchWorldSpace(touch);
-            m_TouchStartPosition2 = GetTouchWorldSpace(touch2);
-            if (!CheckInInputZoneBall())
+            if (touch.phase == TouchPhase.Began || touch2.phase == TouchPhase.Began)
             {
-                GameManager.instance.EventManager.TriggerEvent(Constants.CAMERA_ZOOMING, m_TouchStartPosition, m_TouchStartPosition2, touch, touch2);
+                m_TouchStartPosition = GetTouchWorldSpace(touch);
+                m_TouchStartPosition2 = GetTouchWorldSpace(touch2);
+                GameManager.instance.EventManager.TriggerEvent(Constants.START_CAMERA_ZOOMING, m_TouchStartPosition, m_TouchStartPosition2, touch, touch2);
+            }
+            if (touch.phase == TouchPhase.Ended || touch2.phase == TouchPhase.Ended)
+            {
+                GameManager.instance.EventManager.TriggerEvent(Constants.STOP_CAMERA_ZOOMING);
             }
         }
     }
