@@ -6,9 +6,11 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private float m_DeadZoneSwingRadius;
-    [SerializeField] private float m_DeadZoneBallRadius;
-    private GameObject m_Ball;
+    [SerializeField] private float m_InputZoneBallRadius;
+    [SerializeField] private Transform m_Ball;
+    [SerializeField] private Transform m_Camera;
     private Vector3 m_TouchStartPosition;
+    private Vector3 touchEndPosition = Vector3.zero;
     private Vector3 m_TouchStartPosition2;
 
     // Update is called once per frame
@@ -21,21 +23,41 @@ public class InputManager : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
 
-            m_TouchStartPosition = GetStartTouch(touch);
+            Vector3 touchPosition = GetTouchWorldSpace(touch);
+            
+            if(touch.phase == TouchPhase.Began)
+            {
+                m_TouchStartPosition = touchPosition;
+            }
 
-            if (CheckInDeadzoneBall() && m_TouchStartPosition != Vector3.zero)
-                GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, touch);
-            else
-                GameManager.instance.EventManager.TriggerEvent(Constants.CAMERA_MOVEMENT, m_TouchStartPosition, touch);
+            bool isInInputZone = CheckInInputZoneBall();
+
+            if (touch.phase == TouchPhase.Moved)
+            {
+                Vector3 t1 = GetTouchWorldSpace(touch);
+                float tmp = Vector3.Distance(m_TouchStartPosition, t1);
+                if (tmp > m_DeadZoneSwingRadius)
+                {
+                    touchEndPosition = GetTouchWorldSpace(touch);
+                }
+                if (!isInInputZone)
+                {
+                    GameManager.instance.EventManager.TriggerEvent(Constants.CAMERA_MOVEMENT, m_TouchStartPosition, touch);
+                }
+            }
+            else if((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) && isInInputZone)
+            {
+                GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, touchEndPosition);
+            }
         }
         //Gets the 2 start positions and triggers camera zooming
         else if(Input.touchCount == 2)
         {
             Touch touch = Input.GetTouch(0);
             Touch touch2 = Input.GetTouch(1);
-            m_TouchStartPosition = GetStartTouch(touch);
-            m_TouchStartPosition2 = GetStartTouch(touch2);
-            if (!CheckInDeadzoneBall())
+            m_TouchStartPosition = GetTouchWorldSpace(touch);
+            m_TouchStartPosition2 = GetTouchWorldSpace(touch2);
+            if (!CheckInInputZoneBall())
             {
                 GameManager.instance.EventManager.TriggerEvent(Constants.CAMERA_ZOOMING, m_TouchStartPosition, m_TouchStartPosition2, touch, touch2);
             }
@@ -47,25 +69,23 @@ public class InputManager : MonoBehaviour
     /// </summary>
     /// <param name="touch"></param>
     /// <returns></returns>
-    public Vector3 GetStartTouch(Touch touch)
+    public Vector3 GetTouchWorldSpace(Touch touch)
     {
-        Vector3 touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.y, m_Ball.transform.position.y, touch.position.x));
+        float distanceFromCamera = Vector3.Distance(m_Camera.position, m_Ball.position);
+        Vector3 touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, distanceFromCamera));
 
-        if (touch.phase == TouchPhase.Began)
-            return touchPosition;
-        else
-            return Vector3.zero;
+        return touchPosition;
     }
 
     /// <summary>
     /// Checks if the touch is in the Ball Deadzone (returns a bool)
     /// </summary>
     /// <returns></returns>
-    public bool CheckInDeadzoneBall()
+    public bool CheckInInputZoneBall()
     {
-        float distance = Vector3.Distance(m_TouchStartPosition, m_Ball.transform.position);
+        float distance = Vector3.Distance(m_TouchStartPosition, m_Ball.position);
 
-        if (distance < m_DeadZoneBallRadius)
+        if (distance <= m_InputZoneBallRadius)
             return true;
         else
             return false;
