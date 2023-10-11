@@ -42,7 +42,7 @@ public class InputManager : MonoBehaviour
                 }
                 if (!isInInputZone)
                 {
-                    GameManager.instance.EventManager.TriggerEvent(Constants.CAMERA_MOVEMENT, m_TouchStartPosition, touch);
+                    GameManager.instance.EventManager.TriggerEvent(Constants.CAMERA_MOVEMENT, m_TouchStartPosition, touchEndPosition);
                 }
             }
             else if((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) && isInInputZone)
@@ -73,6 +73,7 @@ public class InputManager : MonoBehaviour
     {
         float distanceFromCamera = Vector3.Distance(m_Camera.position, m_Ball.position);
         Vector3 touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, distanceFromCamera));
+        touchPosition.y = m_Ball.position.y;
 
         return touchPosition;
     }
