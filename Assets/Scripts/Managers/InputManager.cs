@@ -68,7 +68,7 @@ public class InputManager : MonoBehaviour
             {
                 m_TouchScreenStartPos = touch.position;
                 m_TouchScreenStartPos2 = touch.position;
-                GameManager.instance.EventManager.TriggerEvent(Constants.START_CAMERA_ZOOMING, m_TouchScreenStartPos, m_TouchScreenStartPos2, touch, touch2);
+                GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ZOOMING, m_TouchScreenStartPos, m_TouchScreenStartPos2, touch, touch2);
             }
             if (touch.phase == TouchPhase.Ended || touch2.phase == TouchPhase.Ended)
             {
