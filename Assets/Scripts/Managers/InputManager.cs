@@ -11,7 +11,8 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Transform m_Camera;
     private Vector3 m_TouchStartPosition;
     private Vector3 touchEndPosition = Vector3.zero;
-    private Vector3 m_TouchStartPosition2;
+    private Vector2 m_TouchScreenStartPos;
+    private Vector2 m_TouchScreenStartPos2;
 
     // Update is called once per frame
     void Update()
@@ -28,6 +29,7 @@ public class InputManager : MonoBehaviour
             if(touch.phase == TouchPhase.Began)
             {
                 m_TouchStartPosition = touchPosition;
+                m_TouchScreenStartPos = touch.position;
             }
 
             bool isInInputZone = CheckInInputZoneBall();
@@ -42,7 +44,7 @@ public class InputManager : MonoBehaviour
                 }
                 if (!isInInputZone)
                 {
-                    GameManager.instance.EventManager.TriggerEvent(Constants.START_CAMERA_MOVEMENT, m_TouchStartPosition, touch);
+                    GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ROTATION, m_TouchScreenStartPos, touch);
                 }
             }
             else if(touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
@@ -53,7 +55,7 @@ public class InputManager : MonoBehaviour
                 }
                 else
                 {
-                    GameManager.instance.EventManager.TriggerEvent(Constants.STOP_CAMERA_MOVEMENT);
+                    GameManager.instance.EventManager.TriggerEvent(Constants.STOP_CAMERA_ROTATION);
                 }
             }
         }
@@ -64,9 +66,9 @@ public class InputManager : MonoBehaviour
             Touch touch2 = Input.GetTouch(1);
             if (touch.phase == TouchPhase.Began || touch2.phase == TouchPhase.Began)
             {
-                m_TouchStartPosition = GetTouchWorldSpace(touch);
-                m_TouchStartPosition2 = GetTouchWorldSpace(touch2);
-                GameManager.instance.EventManager.TriggerEvent(Constants.START_CAMERA_ZOOMING, m_TouchStartPosition, m_TouchStartPosition2, touch, touch2);
+                m_TouchScreenStartPos = touch.position;
+                m_TouchScreenStartPos2 = touch.position;
+                GameManager.instance.EventManager.TriggerEvent(Constants.START_CAMERA_ZOOMING, m_TouchScreenStartPos, m_TouchScreenStartPos2, touch, touch2);
             }
             if (touch.phase == TouchPhase.Ended || touch2.phase == TouchPhase.Ended)
             {
@@ -84,6 +86,7 @@ public class InputManager : MonoBehaviour
     {
         float distanceFromCamera = Vector3.Distance(m_Camera.position, m_Ball.position);
         Vector3 touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, distanceFromCamera));
+        touchPosition.y = m_Ball.position.y;
 
         return touchPosition;
     }
