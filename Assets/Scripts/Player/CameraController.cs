@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [Tooltip ("Max zooming distance")]
     [SerializeField] private float m_MaxDistance;
+    [Tooltip ("Min zooming distance")]
     [SerializeField] private float m_MinDistance;
 
     [SerializeField] private float m_RotationSpeed;
@@ -20,7 +22,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         GameManager.instance.EventManager.Register(Constants.UPDATE_CAMERA_ROTATION, UpdateRotation);    
-        GameManager.instance.EventManager.Register(Constants.STOP_CAMERA_ROTATION, StopRotation);    
+        GameManager.instance.EventManager.Register(Constants.STOP_CAMERA_ROTATION, StopRotation);  
     }
 
     private void Update()
@@ -98,7 +100,16 @@ public class CameraController : MonoBehaviour
         Vector2 touch1Distance = new Vector2(m_CurrentPos.x - m_StartPos.x, m_CurrentPos.y - m_StartPos.y);
         Vector2 touch2Distance = new Vector2(m_CurrentPos2.x - m_StartPos2.x, m_CurrentPos2.y - m_StartPos2.y);
 
-        Camera.main.orthographicSize = Vector2.Distance(touch1Distance, touch2Distance);
+        Camera.main.orthographicSize += Vector2.Distance(touch1Distance, touch2Distance);
+        if (Camera.main.orthographicSize < m_MinDistance)
+        {
+            Camera.main.orthographicSize = m_MinDistance;
+        }
+
+        else if (Camera.main.orthographicSize > m_MaxDistance)
+        {
+            Camera.main.orthographicSize = m_MaxDistance;
+        }
     }
 
     #endregion
