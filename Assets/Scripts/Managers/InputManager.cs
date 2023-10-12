@@ -54,9 +54,9 @@ public class InputManager : MonoBehaviour
 
             bool isInInputZone = CheckInInputZoneBall();
 
-            if (isInInputZone && touch.phase == TouchPhase.Began)
+            if (isInInputZone && touch.phase == TouchPhase.Began && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
             {
-                m_DeadZoneSwingSprite.transform.position = m_TouchStartPosition;
+                m_DeadZoneSwingSprite.transform.position = new Vector3(m_TouchStartPosition.x, m_TouchStartPosition.y - m_Ball.transform.localScale.y/2 + 0.1f, m_TouchStartPosition.z);
                 m_DeadZoneSwingSprite.SetActive(true);
             }
 
