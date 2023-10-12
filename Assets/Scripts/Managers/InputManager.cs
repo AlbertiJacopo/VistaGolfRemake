@@ -125,7 +125,7 @@ public class InputManager : MonoBehaviour
     /// <param name="showing"></param>
     private void ShowHideSprite(GameObject Sprite, Vector3 position, bool showing)
     {
-        Sprite.transform.position = new Vector3(position.x, position.y - m_Ball.transform.localScale.y / 2 + 0.1f, position.z);
+        Sprite.transform.position = new Vector3(position.x, position.y - (m_Ball.transform.localScale.y / 2 - 0.00001f), position.z);
         Sprite.SetActive(showing);
     }
 
