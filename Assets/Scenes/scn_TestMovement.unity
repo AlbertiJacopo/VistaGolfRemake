@@ -1514,7 +1514,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1738,8 +1738,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abaa32433946c954c9fe4b9b4c8a315f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DeadZoneSwingRadius: 0.5
-  m_InputZoneBallRadius: 2
+  m_DeadZoneSwingRadius: 0.3
+  m_InputZoneBallRadius: 1.5
   m_Ball: {fileID: 1543430952}
   m_Camera: {fileID: 1216870481}
   m_DeadZoneSwingSprite: {fileID: 541422976}
@@ -2130,9 +2130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32000d065655c84e825abbefecd20bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxDistance: 10
-  m_MinDistance: 1
-  m_RotationSpeed: 10
+  m_MaxDistance: 12
+  m_MinDistance: 3
+  m_RotationSpeed: 1000
 --- !u!4 &1775831940
 Transform:
   m_ObjectHideFlags: 0

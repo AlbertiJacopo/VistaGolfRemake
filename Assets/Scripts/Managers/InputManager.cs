@@ -82,6 +82,7 @@ public class InputManager : MonoBehaviour
                     GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ROTATION, m_TouchScreenStartPos, touch.position);
                 }
             }
+            
             //move the player if the touch is ended or canceled and the player is stopped
             else if((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) 
                      && isInInputZone && m_MovePassed 

@@ -36,10 +36,6 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        if (m_CanMove)
-        {
-            CameraRotation();
-        }
 
         if (m_CanZoom)
         {
@@ -57,10 +53,7 @@ public class CameraController : MonoBehaviour
 
         m_StartPos = (Vector2)param[0];
         m_CurrentPos = (Vector2)param[1];
-    }
 
-    private void CameraRotation()
-    {
         Quaternion startingRotation = transform.rotation;
         Quaternion wantedRotation = Quaternion.Euler(0f, m_StartPos.x - m_CurrentPos.x, 0f);
 
