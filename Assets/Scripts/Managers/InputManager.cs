@@ -11,6 +11,8 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Transform m_Camera;
     private Vector3 m_TouchStartPosition;
     private Vector3 touchEndPosition = Vector3.zero;
+    private Vector2 m_TouchScreenStartPos;
+    private Vector2 m_TouchScreenStartPos2;
     private Vector3 m_TouchStartPosition2;
     [SerializeField] private GameObject m_DeadZoneSwingSprite;
     [SerializeField] private GameObject m_InputZoneBallSprite;
@@ -50,6 +52,7 @@ public class InputManager : MonoBehaviour
             if(touch.phase == TouchPhase.Began)
             {
                 m_TouchStartPosition = touchPosition;
+                m_TouchScreenStartPos = touch.position;
             }
 
             bool isInInputZone = CheckInInputZoneBall();
@@ -85,15 +88,19 @@ public class InputManager : MonoBehaviour
             }
         }
         //Gets the 2 start positions and triggers camera zooming
-        else if(Input.touchCount == 2)
+        else if(!CheckInInputZoneBall() && Input.touchCount == 2)
         {
             Touch touch = Input.GetTouch(0);
             Touch touch2 = Input.GetTouch(1);
-            m_TouchStartPosition = GetTouchWorldSpace(touch);
-            m_TouchStartPosition2 = GetTouchWorldSpace(touch2);
-            if (!CheckInInputZoneBall())
+            if (touch.phase == TouchPhase.Began || touch2.phase == TouchPhase.Began)
             {
-                GameManager.instance.EventManager.TriggerEvent(Constants.CAMERA_ZOOMING, m_TouchStartPosition, m_TouchStartPosition2, touch, touch2);
+                m_TouchScreenStartPos = touch.position;
+                m_TouchScreenStartPos2 = touch2.position;
+                GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ZOOMING, m_TouchScreenStartPos, m_TouchScreenStartPos2, touch.position, touch2.position);
+            }
+            if (touch.phase == TouchPhase.Ended || touch2.phase == TouchPhase.Ended)
+            {
+                GameManager.instance.EventManager.TriggerEvent(Constants.STOP_CAMERA_ZOOMING);
             }
         }
     }
