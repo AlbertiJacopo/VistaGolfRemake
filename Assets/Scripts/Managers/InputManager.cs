@@ -12,11 +12,32 @@ public class InputManager : MonoBehaviour
     private Vector3 m_TouchStartPosition;
     private Vector3 touchEndPosition = Vector3.zero;
     private Vector3 m_TouchStartPosition2;
+    [SerializeField] private GameObject m_DeadZoneSwingSprite;
+    [SerializeField] private GameObject m_InputZoneBallSprite;
+
+    private void Start()
+    {
+        m_DeadZoneSwingSprite.transform.localScale = new Vector3(m_DeadZoneSwingRadius * 2, m_DeadZoneSwingRadius * 2, 0);
+        m_InputZoneBallSprite.transform.localScale = new Vector3(m_InputZoneBallRadius * 2, m_InputZoneBallRadius * 2, 0);
+    }
+
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.touchCount == 0) return;
+        if (m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
+        {
+            m_InputZoneBallSprite.transform.position =new Vector3(m_Ball.position.x, m_Ball.position.y - (m_Ball.localScale.y / 2) + 0.001f, m_Ball.position.z);
+            m_InputZoneBallSprite.SetActive(true);
+        }
+        else
+            m_InputZoneBallSprite.SetActive(false);
+
+        if (Input.touchCount == 0)
+        {
+            m_DeadZoneSwingSprite.SetActive(false);
+            return;
+        }
 
         //Gets the start position and triggers player or camera movement
         if(Input.touchCount == 1)
@@ -31,6 +52,12 @@ public class InputManager : MonoBehaviour
             }
 
             bool isInInputZone = CheckInInputZoneBall();
+
+            if (isInInputZone && touch.phase == TouchPhase.Began)
+            {
+                m_DeadZoneSwingSprite.transform.position = m_TouchStartPosition;
+                m_DeadZoneSwingSprite.SetActive(true);
+            }
 
             if (touch.phase == TouchPhase.Moved)
             {
@@ -48,6 +75,7 @@ public class InputManager : MonoBehaviour
             else if((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) && isInInputZone)
             {
                 GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, touchEndPosition);
+                m_DeadZoneSwingSprite.SetActive(false);
             }
         }
         //Gets the 2 start positions and triggers camera zooming
