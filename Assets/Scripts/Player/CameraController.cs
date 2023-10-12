@@ -125,7 +125,7 @@ public class CameraController : MonoBehaviour
         float startDistance = Vector2.Distance(m_StartPos, m_StartPos2);
         float currentDistance = Vector2.Distance(m_CurrentPos, m_CurrentPos2);
 
-        m_Camera.orthographicSize += (currentDistance - startDistance) / m_ZoomingSensibility;
+        m_Camera.orthographicSize -= (currentDistance - startDistance) / m_ZoomingSensibility;
 
         CheckZoomingDistance();
     }
