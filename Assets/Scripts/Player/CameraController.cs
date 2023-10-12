@@ -74,7 +74,7 @@ public class CameraController : MonoBehaviour
 
     public void StopRotation(object[] param)
     {
-        m_CanMove = false;
+
     }
 
     #endregion
