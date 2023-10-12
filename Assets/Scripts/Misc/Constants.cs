@@ -10,4 +10,5 @@ public static class Constants
     public static string STOP_CAMERA_ZOOMING = "StopCameraZooming";
     public static string START_CAMERA_TRACKING = "StartCameraTracking";
     public static string STOP_CAMERA_TRACKING = "StopCameraTracking";
+    public static string WIN_GAME = "WinGame";
 }

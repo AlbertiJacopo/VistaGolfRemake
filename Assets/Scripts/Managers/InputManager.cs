@@ -5,17 +5,20 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    [SerializeField] private float m_DeadZoneSwingRadius;
-    [SerializeField] private float m_InputZoneBallRadius;
     [SerializeField] private Transform m_Ball;
     [SerializeField] private Transform m_Camera;
+
     private Vector3 m_TouchStartPosition;
-    private Vector3 touchEndPosition = Vector3.zero;
+    private Vector3 m_TouchEndPosition = Vector3.zero;
     private Vector2 m_TouchScreenStartPos;
     private Vector2 m_TouchScreenStartPos2;
-    private Vector3 m_TouchStartPosition2;
+
+    [Header("Ranges")]
+    [SerializeField] private float m_DeadZoneSwingRadius;
     [SerializeField] private GameObject m_DeadZoneSwingSprite;
+    [SerializeField] private float m_InputZoneBallRadius;
     [SerializeField] private GameObject m_InputZoneBallSprite;
+
     private bool m_MovePassed = false;
 
     private void Start()
@@ -71,7 +74,7 @@ public class InputManager : MonoBehaviour
                 //checking if inside or outside the deadzone
                 if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) > m_DeadZoneSwingRadius)
                 {
-                    touchEndPosition = GetTouchWorldSpace(touch);
+                    m_TouchEndPosition = GetTouchWorldSpace(touch);
                     m_MovePassed = true;
                 }
                 else m_MovePassed = false;
@@ -88,7 +91,7 @@ public class InputManager : MonoBehaviour
                      && isInInputZone && m_MovePassed 
                      && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
             {
-                GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, touchEndPosition);
+                GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, m_TouchEndPosition);
                 m_DeadZoneSwingSprite.SetActive(false);
             }
         }
@@ -134,7 +137,18 @@ public class InputManager : MonoBehaviour
     public Vector3 GetTouchWorldSpace(Touch touch)
     {
         float distanceFromCamera = Vector3.Distance(m_Camera.position, m_Ball.position);
-        Vector3 touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, distanceFromCamera));
+        // = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, distanceFromCamera));
+        Vector3 touchPosition = Vector3.zero;
+        Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+        // create a logical plane at this object's position
+        // and perpendicular to world Y:
+        Plane plane = new Plane(Vector3.up, m_Ball.position);
+        float distance = 0; // this will return the distance from the camera
+        if (plane.Raycast(ray, out distance))
+        { // if plane hit...
+            touchPosition = ray.GetPoint(distance); // get the point
+                                                  // pos has the position in the plane you've touched
+        }
         touchPosition.y = m_Ball.position.y;
 
         return touchPosition;
@@ -147,6 +161,9 @@ public class InputManager : MonoBehaviour
     public bool CheckInInputZoneBall()
     {
         float distance = Vector3.Distance(m_TouchStartPosition, m_Ball.position);
+
+        Debug.Log("m_TouchStartPosition " + m_TouchStartPosition);
+        Debug.Log("m_Ball.position " + m_Ball.position);
 
         if (distance <= m_InputZoneBallRadius)
             return true;

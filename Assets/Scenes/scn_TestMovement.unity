@@ -150,7 +150,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.04399997, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -234,7 +234,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 345072959}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -401,7 +401,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 368105567}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -888,7 +888,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788501691}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -978,7 +978,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 867343630}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1119,7 +1119,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 883070178}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1239,7 +1239,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 894783379}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1388,7 +1388,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1165098109}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1615,7 +1615,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1239815072}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1738,11 +1738,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abaa32433946c954c9fe4b9b4c8a315f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DeadZoneSwingRadius: 0.3
-  m_InputZoneBallRadius: 1.5
   m_Ball: {fileID: 1543430952}
   m_Camera: {fileID: 1216870481}
+  m_DeadZoneSwingRadius: 1
   m_DeadZoneSwingSprite: {fileID: 541422976}
+  m_InputZoneBallRadius: 3
   m_InputZoneBallSprite: {fileID: 173432026}
 --- !u!1 &1514609303
 GameObject:
@@ -1770,7 +1770,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1514609303}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1882,7 +1882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96ae7de148ffdc408bb8fe33ffdf51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ForceMultiplier: 5
+  m_ForceMultiplier: 30
 --- !u!54 &1543430948
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1893,7 +1893,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 1
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2037,7 +2037,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1734447233}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2132,7 +2132,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxDistance: 12
   m_MinDistance: 3
-  m_RotationSpeed: 1000
+  m_RotationSpeed: 100
+  m_ZoomingSensibility: 300
 --- !u!4 &1775831940
 Transform:
   m_ObjectHideFlags: 0
