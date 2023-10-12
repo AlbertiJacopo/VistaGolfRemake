@@ -14,9 +14,12 @@ public class InputManager : MonoBehaviour
     private Vector2 m_TouchScreenStartPos;
     private Vector2 m_TouchScreenStartPos2;
 
+
     // Update is called once per frame
     void Update()
     {
+        GameManager.instance.EventManager.TriggerEvent(Constants.START_CAMERA_TRACKING, m_Ball.position);
+
         if (Input.touchCount == 0) return;
 
         //Gets the start position and triggers player or camera movement
@@ -44,7 +47,7 @@ public class InputManager : MonoBehaviour
                 }
                 if (!isInInputZone)
                 {
-                    GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ROTATION, m_TouchScreenStartPos, touch);
+                    GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ROTATION, m_TouchScreenStartPos, touch.position);
                 }
             }
             else if(touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
@@ -67,8 +70,8 @@ public class InputManager : MonoBehaviour
             if (touch.phase == TouchPhase.Began || touch2.phase == TouchPhase.Began)
             {
                 m_TouchScreenStartPos = touch.position;
-                m_TouchScreenStartPos2 = touch.position;
-                GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ZOOMING, m_TouchScreenStartPos, m_TouchScreenStartPos2, touch, touch2);
+                m_TouchScreenStartPos2 = touch2.position;
+                GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ZOOMING, m_TouchScreenStartPos, m_TouchScreenStartPos2, touch.position, touch2.position);
             }
             if (touch.phase == TouchPhase.Ended || touch2.phase == TouchPhase.Ended)
             {

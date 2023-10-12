@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -16,13 +17,21 @@ public class CameraController : MonoBehaviour
     private Vector2 m_CurrentPos;
     private Vector2 m_CurrentPos2;
 
+    private Vector3 m_BallPosition;
+
     private bool m_CanMove = false;
     private bool m_CanZoom = false;
+    private bool m_CanTrack = false;
 
     private void Start()
     {
         GameManager.instance.EventManager.Register(Constants.UPDATE_CAMERA_ROTATION, UpdateRotation);    
-        GameManager.instance.EventManager.Register(Constants.STOP_CAMERA_ROTATION, StopRotation);  
+        GameManager.instance.EventManager.Register(Constants.STOP_CAMERA_ROTATION, StopRotation);
+        GameManager.instance.EventManager.Register(Constants.UPDATE_CAMERA_ZOOMING, UpdateZooming);
+        GameManager.instance.EventManager.Register(Constants.STOP_CAMERA_ZOOMING, StopZooming);
+        GameManager.instance.EventManager.Register(Constants.START_CAMERA_TRACKING, StartTracking);
+        GameManager.instance.EventManager.Register(Constants.STOP_CAMERA_TRACKING, StopTracking);
+
     }
 
     private void Update()
@@ -36,6 +45,7 @@ public class CameraController : MonoBehaviour
         {
             Zooming();
         }
+
     }
 
     #region Rotation
@@ -68,10 +78,20 @@ public class CameraController : MonoBehaviour
 
     public void StopTracking(object[] param)
     {
-
+        if (!m_CanTrack)
+            m_CanTrack = true;
     }
 
     public void StartTracking(object[] param)
+    {
+        if (m_CanTrack)
+            m_CanTrack = false;
+
+        m_BallPosition = (Vector3)param[0];
+        transform.position = m_BallPosition;
+    }
+
+    private void CameraTrack()
     {
 
     }
