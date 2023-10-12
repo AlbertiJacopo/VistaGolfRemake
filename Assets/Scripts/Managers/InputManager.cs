@@ -28,14 +28,16 @@ public class InputManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //tracking player by camera continously
+        GameManager.instance.EventManager.TriggerEvent(Constants.START_CAMERA_TRACKING, m_Ball.position);
+
+        //showing graphic part of inputzone if the player is stopeed
         if (m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
-        {
-            m_InputZoneBallSprite.transform.position =new Vector3(m_Ball.position.x, m_Ball.position.y - (m_Ball.localScale.y / 2) + 0.001f, m_Ball.position.z);
-            m_InputZoneBallSprite.SetActive(true);
-        }
+            ShowHideSprite(m_InputZoneBallSprite, m_Ball.position, true);
         else
             m_InputZoneBallSprite.SetActive(false);
 
+        //hiding touch deadzone if there're no touchs
         if (Input.touchCount == 0)
         {
             m_DeadZoneSwingSprite.SetActive(false);
@@ -48,7 +50,10 @@ public class InputManager : MonoBehaviour
             Touch touch = Input.GetTouch(0);
 
             Vector3 touchPosition = GetTouchWorldSpace(touch);
-            
+
+            Debug.Log("touch: " + touchPosition);
+
+            //taking the first touch
             if(touch.phase == TouchPhase.Began)
             {
                 m_TouchStartPosition = touchPosition;
@@ -57,17 +62,14 @@ public class InputManager : MonoBehaviour
 
             bool isInInputZone = CheckInInputZoneBall();
 
+            //showing deadzone when touch
             if (isInInputZone && touch.phase == TouchPhase.Began && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
-            {
-                m_DeadZoneSwingSprite.transform.position = new Vector3(m_TouchStartPosition.x, m_TouchStartPosition.y - m_Ball.transform.localScale.y/2 + 0.1f, m_TouchStartPosition.z);
-                m_DeadZoneSwingSprite.SetActive(true);
-            }
+                ShowHideSprite(m_DeadZoneSwingSprite, m_TouchStartPosition, true);
 
             if (touch.phase == TouchPhase.Moved)
             {
-                Vector3 t1 = GetTouchWorldSpace(touch);
-                float tmp = Vector3.Distance(m_TouchStartPosition, t1);
-                if (tmp > m_DeadZoneSwingRadius)
+                //checking if inside or outside the deadzone
+                if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) > m_DeadZoneSwingRadius)
                 {
                     touchEndPosition = GetTouchWorldSpace(touch);
                     m_MovePassed = true;
@@ -76,9 +78,11 @@ public class InputManager : MonoBehaviour
 
                 if (!isInInputZone)
                 {
-                    GameManager.instance.EventManager.TriggerEvent(Constants.CAMERA_MOVEMENT, m_TouchStartPosition, touchEndPosition);
+                    //rotate camera if outside the inputzone
+                    GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ROTATION, m_TouchScreenStartPos, touch.position);
                 }
             }
+            //move the player if the touch is ended or canceled and the player is stopped
             else if((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) 
                      && isInInputZone && m_MovePassed 
                      && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
@@ -103,6 +107,18 @@ public class InputManager : MonoBehaviour
                 GameManager.instance.EventManager.TriggerEvent(Constants.STOP_CAMERA_ZOOMING);
             }
         }
+    }
+
+    /// <summary>
+    /// Show or hide the sprite and set its position
+    /// </summary>
+    /// <param name="Sprite"></param>
+    /// <param name="position"></param>
+    /// <param name="showing"></param>
+    private void ShowHideSprite(GameObject Sprite, Vector3 position, bool showing)
+    {
+        Sprite.transform.position = new Vector3(position.x, position.y - m_Ball.transform.localScale.y / 2 + 0.1f, position.z);
+        Sprite.SetActive(showing);
     }
 
     /// <summary>
