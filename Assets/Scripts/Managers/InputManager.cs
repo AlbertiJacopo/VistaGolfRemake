@@ -101,8 +101,12 @@ public class InputManager : MonoBehaviour
             {
                 m_TouchScreenStartPos = touch.position;
                 m_TouchScreenStartPos2 = touch2.position;
+            }
+            if (touch.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved)
+            {
                 GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ZOOMING, m_TouchScreenStartPos, m_TouchScreenStartPos2, touch.position, touch2.position);
             }
+
             if (touch.phase == TouchPhase.Ended || touch2.phase == TouchPhase.Ended)
             {
                 GameManager.instance.EventManager.TriggerEvent(Constants.STOP_CAMERA_ZOOMING);

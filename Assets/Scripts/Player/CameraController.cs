@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CameraController : MonoBehaviour
 {
@@ -11,15 +12,19 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float m_MinDistance;
 
     [SerializeField] private float m_RotationSpeed;
+    [Tooltip ("High value = less sensibility")]
+    [SerializeField] private float m_ZoomingSensibility;
+
+    private Camera m_Camera;
 
     private Vector2 m_StartPos;
     private Vector2 m_StartPos2;
+    private Vector2 m_LastPos;
     private Vector2 m_CurrentPos;
     private Vector2 m_CurrentPos2;
 
     private Vector3 m_BallPosition;
 
-    private bool m_CanMove = false;
     private bool m_CanZoom = false;
     private bool m_CanTrack = false;
 
@@ -31,6 +36,8 @@ public class CameraController : MonoBehaviour
         GameManager.instance.EventManager.Register(Constants.STOP_CAMERA_ZOOMING, StopZooming);
         GameManager.instance.EventManager.Register(Constants.START_CAMERA_TRACKING, StartTracking);
         GameManager.instance.EventManager.Register(Constants.STOP_CAMERA_TRACKING, StopTracking);
+        m_Camera = GetComponentInChildren<Camera>();
+        CheckZoomingDistance();
 
     }
 
@@ -48,16 +55,21 @@ public class CameraController : MonoBehaviour
 
     public void UpdateRotation(object[] param)
     {
-        if (!m_CanMove)
-            m_CanMove = true;
-
         m_StartPos = (Vector2)param[0];
         m_CurrentPos = (Vector2)param[1];
+
+        if ((m_StartPos.x < m_CurrentPos.x && m_CurrentPos.x < m_LastPos.x) ||
+            (m_StartPos.x > m_CurrentPos.x && m_CurrentPos.x > m_LastPos.x))
+        {
+            m_StartPos = m_LastPos;
+        }
 
         Quaternion startingRotation = transform.rotation;
         Quaternion wantedRotation = Quaternion.Euler(0f, m_StartPos.x - m_CurrentPos.x, 0f);
 
         transform.rotation = Quaternion.RotateTowards(startingRotation, wantedRotation, Time.deltaTime * m_RotationSpeed);
+        
+        m_LastPos = m_CurrentPos;
     }
 
     public void StopRotation(object[] param)
@@ -110,18 +122,24 @@ public class CameraController : MonoBehaviour
     
     private void Zooming()
     {
-        Vector2 touch1Distance = new Vector2(m_CurrentPos.x - m_StartPos.x, m_CurrentPos.y - m_StartPos.y);
-        Vector2 touch2Distance = new Vector2(m_CurrentPos2.x - m_StartPos2.x, m_CurrentPos2.y - m_StartPos2.y);
+        float startDistance = Vector2.Distance(m_StartPos, m_StartPos2);
+        float currentDistance = Vector2.Distance(m_CurrentPos, m_CurrentPos2);
 
-        Camera.main.orthographicSize += Vector2.Distance(touch1Distance, touch2Distance);
-        if (Camera.main.orthographicSize < m_MinDistance)
+        m_Camera.orthographicSize += (currentDistance - startDistance) / m_ZoomingSensibility;
+
+        CheckZoomingDistance();
+    }
+
+    private void CheckZoomingDistance()
+    {
+        if (m_Camera.orthographicSize < m_MinDistance)
         {
-            Camera.main.orthographicSize = m_MinDistance;
+            m_Camera.orthographicSize = m_MinDistance;
         }
 
-        else if (Camera.main.orthographicSize > m_MaxDistance)
+        else if (m_Camera.orthographicSize > m_MaxDistance)
         {
-            Camera.main.orthographicSize = m_MaxDistance;
+            m_Camera.orthographicSize = m_MaxDistance;
         }
     }
 
