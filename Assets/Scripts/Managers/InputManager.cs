@@ -14,6 +14,7 @@ public class InputManager : MonoBehaviour
     private Vector3 m_TouchStartPosition2;
     [SerializeField] private GameObject m_DeadZoneSwingSprite;
     [SerializeField] private GameObject m_InputZoneBallSprite;
+    private bool m_MovePassed = false;
 
     private void Start()
     {
@@ -66,13 +67,18 @@ public class InputManager : MonoBehaviour
                 if (tmp > m_DeadZoneSwingRadius)
                 {
                     touchEndPosition = GetTouchWorldSpace(touch);
+                    m_MovePassed = true;
                 }
+                else m_MovePassed = false;
+
                 if (!isInInputZone)
                 {
                     GameManager.instance.EventManager.TriggerEvent(Constants.CAMERA_MOVEMENT, m_TouchStartPosition, touchEndPosition);
                 }
             }
-            else if((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) && isInInputZone)
+            else if((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) 
+                     && isInInputZone && m_MovePassed 
+                     && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
             {
                 GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, touchEndPosition);
                 m_DeadZoneSwingSprite.SetActive(false);
