@@ -6,6 +6,7 @@ public class MovementComponent : MonoBehaviour
 {
     private Rigidbody m_RigidBody;
     [SerializeField] private float m_ForceMultiplier;
+    private Vector3 m_LastVelocity;
 
     private void Start()
     {
@@ -22,13 +23,21 @@ public class MovementComponent : MonoBehaviour
         m_RigidBody.AddForce(-direction * m_ForceMultiplier, ForceMode.Impulse);
     }
 
-    public void Bounce()
+    private void Update()
     {
+        m_LastVelocity = m_RigidBody.velocity;
+    }
 
+    public void Bounce(Collision collision)
+    {
+        float speed = m_LastVelocity.magnitude;
+        Vector3 direction = Vector3.Reflect(m_LastVelocity.normalized, collision.contacts[0].normal);
+
+        m_RigidBody.velocity = direction * Mathf.Max(speed, 1f);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+        Bounce(collision);
     }
 }
