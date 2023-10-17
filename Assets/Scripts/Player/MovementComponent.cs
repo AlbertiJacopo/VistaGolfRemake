@@ -5,8 +5,11 @@ using UnityEngine;
 public class MovementComponent : MonoBehaviour
 {
     private Rigidbody m_RigidBody;
-    [SerializeField] private float m_ForceMultiplier;
     private Vector3 m_LastVelocity;
+
+    [Header("Modificators")]
+    [SerializeField] private float m_MaxSpeed;
+    [SerializeField] private float m_ReducePercentage;
 
     private void Start()
     {
@@ -24,8 +27,8 @@ public class MovementComponent : MonoBehaviour
         Vector3 startPos = (Vector3)param[0];
         Vector3 endPos = (Vector3)param[1];
 
-        Vector3 direction = (endPos - startPos).normalized;
-        m_RigidBody.AddForce(-direction * m_ForceMultiplier, ForceMode.Impulse);
+        Vector3 direction = (endPos - startPos);
+        m_RigidBody.AddForce(-direction * m_MaxSpeed, ForceMode.Impulse);
     }
 
     public void Bounce(Vector3 normal)
@@ -33,19 +36,23 @@ public class MovementComponent : MonoBehaviour
         float speed = m_LastVelocity.magnitude;
         Vector3 direction = Vector3.Reflect(m_LastVelocity.normalized, normal);
 
-        m_RigidBody.velocity = direction * Mathf.Max(speed, speed/2);
+        //speed = speed - ((m_ReducePercentage * speed) / 100);
+        speed = speed * m_ReducePercentage;
+        m_RigidBody.velocity = direction * speed;
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if (m_RigidBody.velocity.y == 0)
         {
-            Vector3 normal = new Vector3(other.contacts[0].normal.x, 0f, other.contacts[0].normal.z);
+            
+            Vector3 normal = new Vector3(other.GetContact(0).normal.x, 0f, other.GetContact(0).normal.z);
             Bounce(normal);
         }
         else
         {
-            Bounce(other.contacts[0].normal);
+            //Bounce(other.contacts[0].normal);
+            Bounce(other.GetContact(0).normal);
         }
     }
 }

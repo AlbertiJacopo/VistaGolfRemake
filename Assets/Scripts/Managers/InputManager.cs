@@ -21,10 +21,16 @@ public class InputManager : MonoBehaviour
 
     private bool m_MovePassed = false;
 
+    private LineRenderer m_InputDirectionRenderer;
+    private LineRenderer m_CalculatedDirection;
+
     private void Start()
     {
         m_DeadZoneSwingSprite.transform.localScale = new Vector3(m_DeadZoneSwingRadius * 2, m_DeadZoneSwingRadius * 2, 0);
         m_InputZoneBallSprite.transform.localScale = new Vector3(m_InputZoneBallRadius * 2, m_InputZoneBallRadius * 2, 0);
+
+        m_InputDirectionRenderer = m_Ball.transform.GetChild(0).GetComponent<LineRenderer>();
+        m_CalculatedDirection = m_Ball.transform.GetChild(1).GetComponent<LineRenderer>();
     }
 
 
@@ -61,6 +67,7 @@ public class InputManager : MonoBehaviour
             {
                 m_TouchStartPosition = touchPosition;
                 m_TouchScreenStartPos = touch.position;
+                m_InputDirectionRenderer.SetPosition(0, m_TouchStartPosition);
             }
 
             bool isInInputZone = CheckInInputZoneBall();
@@ -72,17 +79,24 @@ public class InputManager : MonoBehaviour
             if (touch.phase == TouchPhase.Moved)
             {
                 //checking if inside or outside the deadzone
-                if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) > m_DeadZoneSwingRadius)
-                {
-                    m_TouchEndPosition = GetTouchWorldSpace(touch);
-                    m_MovePassed = true;
-                }
-                else m_MovePassed = false;
-
                 if (!isInInputZone)
                 {
                     //rotate camera if outside the inputzone
                     GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ROTATION, m_TouchScreenStartPos, touch.position);
+                }
+                else
+                {
+                    if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) > m_DeadZoneSwingRadius)
+                    {
+                        m_TouchEndPosition = GetTouchWorldSpace(touch);
+                        m_MovePassed = true;
+                        m_InputDirectionRenderer.SetPosition(1, m_TouchEndPosition);
+
+
+
+                        EnableDisableRenderers(true);
+                    }
+                    else m_MovePassed = false;
                 }
             }
             
@@ -93,6 +107,8 @@ public class InputManager : MonoBehaviour
             {
                 GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, m_TouchEndPosition);
                 m_DeadZoneSwingSprite.SetActive(false);
+
+                EnableDisableRenderers(false);
             }
         }
         //Gets the 2 start positions and triggers camera zooming
@@ -169,5 +185,27 @@ public class InputManager : MonoBehaviour
             return true;
         else
             return false;
+    }
+
+    private void CalculateWay()
+    {
+        Vector3 directionBall = -(m_TouchEndPosition - m_TouchStartPosition);
+        RaycastHit hit;
+
+        Vector3 wallHitPosition;
+        Vector3 normal;
+
+        Physics.Raycast(m_Ball.position, directionBall, out hit);
+
+        wallHitPosition = hit.point;
+        normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
+
+        Vector3 directionWall = Vector3.Reflect(directionBall.normalized, normal);
+    }
+
+    private void EnableDisableRenderers(bool value)
+    {
+        m_InputDirectionRenderer.gameObject.SetActive(value);
+        m_CalculatedDirection.gameObject.SetActive(value);
     }
 }
