@@ -25,6 +25,8 @@ public class CameraController : MonoBehaviour
 
     private Vector3 m_BallPosition;
 
+    private float m_CurrentScrollDelta = 0f;
+
     private bool m_CanZoom = false;
     private bool m_CanTrack = false;
 
@@ -39,6 +41,8 @@ public class CameraController : MonoBehaviour
         m_Camera = GetComponentInChildren<Camera>();
         CheckZoomingDistance();
 
+        m_CurrentScrollDelta = m_Camera.orthographicSize;
+
     }
 
     private void Update()
@@ -48,6 +52,10 @@ public class CameraController : MonoBehaviour
         {
             Zooming();
         }
+
+        m_CurrentScrollDelta += Input.mouseScrollDelta.y;
+        m_Camera.orthographicSize = m_CurrentScrollDelta * -1;
+        
 
     }
 
