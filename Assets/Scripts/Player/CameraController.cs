@@ -52,9 +52,21 @@ public class CameraController : MonoBehaviour
         {
             Zooming();
         }
+        else
+        {
+            m_CurrentScrollDelta += Input.mouseScrollDelta.y;
+            m_Camera.orthographicSize = m_CurrentScrollDelta * -1;
 
-        m_CurrentScrollDelta += Input.mouseScrollDelta.y;
-        m_Camera.orthographicSize = m_CurrentScrollDelta * -1;
+            if (m_Camera.orthographicSize < m_MinDistance)
+            {
+                m_Camera.orthographicSize = m_MinDistance;
+            }
+
+            else if (m_Camera.orthographicSize > m_MaxDistance)
+            {
+                m_Camera.orthographicSize = m_MaxDistance;
+            }
+        }
         
 
     }
