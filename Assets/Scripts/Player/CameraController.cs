@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float m_RotationSpeed;
     [Tooltip ("High value = less sensibility")]
     [SerializeField] private float m_ZoomingSensibility;
+    [SerializeField] private float m_MouseZoomingSensibility;
 
     private Camera m_Camera;
 
@@ -55,7 +56,7 @@ public class CameraController : MonoBehaviour
         else
         {
             m_CurrentScrollDelta += Input.mouseScrollDelta.y;
-            m_Camera.orthographicSize = m_CurrentScrollDelta * -1;
+            m_Camera.orthographicSize = m_CurrentScrollDelta * -1 * m_MouseZoomingSensibility;
 
             if (m_Camera.orthographicSize < m_MinDistance)
             {
