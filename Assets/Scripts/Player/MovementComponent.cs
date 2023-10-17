@@ -13,6 +13,11 @@ public class MovementComponent : MonoBehaviour
         GameManager.instance.EventManager.Register(Constants.MOVEMENT_PLAYER, Movement);
         m_RigidBody = GetComponent<Rigidbody>();
     }
+    private void Update()
+    {
+        m_LastVelocity = m_RigidBody.velocity;
+    }
+
 
     public void Movement(object[] param)
     {
@@ -23,21 +28,24 @@ public class MovementComponent : MonoBehaviour
         m_RigidBody.AddForce(-direction * m_ForceMultiplier, ForceMode.Impulse);
     }
 
-    private void Update()
-    {
-        m_LastVelocity = m_RigidBody.velocity;
-    }
-
-    public void Bounce(Collision collision)
+    public void Bounce(Vector3 normal)
     {
         float speed = m_LastVelocity.magnitude;
-        Vector3 direction = Vector3.Reflect(m_LastVelocity.normalized, collision.contacts[0].normal);
+        Vector3 direction = Vector3.Reflect(m_LastVelocity.normalized, normal);
 
-        m_RigidBody.velocity = direction * Mathf.Max(speed, 1f);
+        m_RigidBody.velocity = direction * Mathf.Max(speed, speed/2);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision other)
     {
-        Bounce(collision);
+        if (m_RigidBody.velocity.y == 0)
+        {
+            Vector3 normal = new Vector3(other.contacts[0].normal.x, 0f, other.contacts[0].normal.z);
+            Bounce(normal);
+        }
+        else
+        {
+            Bounce(other.contacts[0].normal);
+        }
     }
 }

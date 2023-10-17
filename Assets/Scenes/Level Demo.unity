@@ -222,6 +222,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1786287164}
     m_Modifications:
+    - target: {fileID: 94487657132544430, guid: 5d0cb2400a6028e4395695380622bd39,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     - target: {fileID: 1104929513805107837, guid: 5d0cb2400a6028e4395695380622bd39,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -277,6 +282,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 3D_Tile_02g
       objectReference: {fileID: 0}
+    - target: {fileID: 3677208814360502753, guid: 5d0cb2400a6028e4395695380622bd39,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     - target: {fileID: 4016419351651847419, guid: 5d0cb2400a6028e4395695380622bd39,
         type: 3}
       propertyPath: m_Material
@@ -295,6 +305,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543,
         type: 2}
+    - target: {fileID: 5862840556957278152, guid: 5d0cb2400a6028e4395695380622bd39,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -687,6 +702,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1786287164}
     m_Modifications:
+    - target: {fileID: 94487657132544430, guid: 5d0cb2400a6028e4395695380622bd39,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     - target: {fileID: 1104929513805107837, guid: 5d0cb2400a6028e4395695380622bd39,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -742,6 +762,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 3D_Tile_02g
       objectReference: {fileID: 0}
+    - target: {fileID: 3677208814360502753, guid: 5d0cb2400a6028e4395695380622bd39,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     - target: {fileID: 4016419351651847419, guid: 5d0cb2400a6028e4395695380622bd39,
         type: 3}
       propertyPath: m_Material
@@ -760,6 +785,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543,
         type: 2}
+    - target: {fileID: 5862840556957278152, guid: 5d0cb2400a6028e4395695380622bd39,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     - target: {fileID: 9114195839695056213, guid: 5d0cb2400a6028e4395695380622bd39,
         type: 3}
       propertyPath: m_Convex
@@ -1082,10 +1112,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1134010616273423356, guid: f1355d2963197fc44aea260023746614,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     - target: {fileID: 4866065485634301682, guid: f1355d2963197fc44aea260023746614,
         type: 3}
       propertyPath: m_Name
       value: 3D_Tile_02e
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071950846832574330, guid: f1355d2963197fc44aea260023746614,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
       objectReference: {fileID: 0}
     - target: {fileID: 6004105659614280580, guid: f1355d2963197fc44aea260023746614,
         type: 3}
@@ -1160,6 +1200,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b25b8813330f6746b514db98f17e32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MainMenuScreen: {fileID: 0}
+  m_OptionsScreen: {fileID: 0}
+  m_PauseScreen: {fileID: 0}
 --- !u!1 &1216870478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1680,7 +1723,7 @@ Transform:
   m_GameObject: {fileID: 1543430946}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.403, y: 3.17, z: -2.487}
+  m_LocalPosition: {x: -1.403, y: 3.1465, z: -2.487}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1862,10 +1905,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1134010616273423356, guid: f1355d2963197fc44aea260023746614,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     - target: {fileID: 4866065485634301682, guid: f1355d2963197fc44aea260023746614,
         type: 3}
       propertyPath: m_Name
       value: 3D_Tile_02e
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071950846832574330, guid: f1355d2963197fc44aea260023746614,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
       objectReference: {fileID: 0}
     - target: {fileID: 6004105659614280580, guid: f1355d2963197fc44aea260023746614,
         type: 3}
@@ -2192,6 +2245,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 3D_Tile_02c
       objectReference: {fileID: 0}
+    - target: {fileID: 1928716462969053377, guid: 778f44aa7a3ff3941b7af1a77c198e02,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     - target: {fileID: 2819479148139990971, guid: 778f44aa7a3ff3941b7af1a77c198e02,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2254,6 +2312,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543,
         type: 2}
+    - target: {fileID: 6786937369220976194, guid: 778f44aa7a3ff3941b7af1a77c198e02,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2524,10 +2587,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1134010616273423356, guid: f1355d2963197fc44aea260023746614,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     - target: {fileID: 4866065485634301682, guid: f1355d2963197fc44aea260023746614,
         type: 3}
       propertyPath: m_Name
       value: 3D_Tile_02e
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071950846832574330, guid: f1355d2963197fc44aea260023746614,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
       objectReference: {fileID: 0}
     - target: {fileID: 6004105659614280580, guid: f1355d2963197fc44aea260023746614,
         type: 3}
@@ -2564,6 +2637,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 3D_Tile_02c
+      objectReference: {fileID: 0}
+    - target: {fileID: 1928716462969053377, guid: 778f44aa7a3ff3941b7af1a77c198e02,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
       objectReference: {fileID: 0}
     - target: {fileID: 2819479148139990971, guid: 778f44aa7a3ff3941b7af1a77c198e02,
         type: 3}
@@ -2627,6 +2705,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543,
         type: 2}
+    - target: {fileID: 6786937369220976194, guid: 778f44aa7a3ff3941b7af1a77c198e02,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2650,6 +2733,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 3D_Tile_02c
+      objectReference: {fileID: 0}
+    - target: {fileID: 1928716462969053377, guid: 778f44aa7a3ff3941b7af1a77c198e02,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
       objectReference: {fileID: 0}
     - target: {fileID: 2819479148139990971, guid: 778f44aa7a3ff3941b7af1a77c198e02,
         type: 3}
@@ -2713,6 +2801,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543,
         type: 2}
+    - target: {fileID: 6786937369220976194, guid: 778f44aa7a3ff3941b7af1a77c198e02,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2736,6 +2829,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 3D_Tile_02c
+      objectReference: {fileID: 0}
+    - target: {fileID: 1928716462969053377, guid: 778f44aa7a3ff3941b7af1a77c198e02,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
       objectReference: {fileID: 0}
     - target: {fileID: 2819479148139990971, guid: 778f44aa7a3ff3941b7af1a77c198e02,
         type: 3}
@@ -2799,6 +2897,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 13400000, guid: 4bf01855670ca8043b1a62b40674c543,
         type: 2}
+    - target: {fileID: 6786937369220976194, guid: 778f44aa7a3ff3941b7af1a77c198e02,
+        type: 3}
+      propertyPath: m_TagString
+      value: wall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
