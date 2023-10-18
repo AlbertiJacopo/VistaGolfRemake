@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17672269, g: 0.22120747, b: 0.3035085, a: 1}
+  m_IndirectSpecularColor: {r: 0.17672253, g: 0.22120729, b: 0.30350778, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -778,8 +778,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.047480468
-        value: 0.01886774
+        time: 0.081110835
+        value: 0.036415346
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1425,8 +1425,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.18435462
-        value: 0.40251496
+        time: 0.13203986
+        value: 0.034091502
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1801,6 +1801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Ball: {fileID: 1543430952}
   m_Camera: {fileID: 1216870481}
+  m_RenderDistanceLenght: 10
   m_DeadZoneSwingRadius: 0.1
   m_DeadZoneSwingSprite: {fileID: 541422976}
   m_InputZoneBallRadius: 0.3
@@ -1889,8 +1890,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96ae7de148ffdc408bb8fe33ffdf51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxSpeed: 0
-  m_ReducePercentage: 0
+  m_MaxSpeed: 2
+  m_ReducePercentage: 1
 --- !u!54 &1543430948
 Rigidbody:
   m_ObjectHideFlags: 0

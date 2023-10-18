@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField] private Transform m_Ball;
     [SerializeField] private Transform m_Camera;
+    [SerializeField] private float m_RenderDistanceLenght;
 
     private Vector3 m_TouchStartPosition;
     private Vector3 m_TouchEndPosition = Vector3.zero;
@@ -92,7 +93,7 @@ public class InputManager : MonoBehaviour
                         m_MovePassed = true;
                         m_InputDirectionRenderer.SetPosition(1, m_TouchEndPosition);
 
-
+                        CalculateWay();
 
                         EnableDisableRenderers(true);
                     }
@@ -189,18 +190,64 @@ public class InputManager : MonoBehaviour
 
     private void CalculateWay()
     {
+        Vector3 finalPoint = Vector3.zero;
+        float actualLenght = 0;
         Vector3 directionBall = -(m_TouchEndPosition - m_TouchStartPosition);
         RaycastHit hit;
 
-        Vector3 wallHitPosition;
+        List<Vector3> wallHitPosition = new List<Vector3>();
         Vector3 normal;
 
-        Physics.Raycast(m_Ball.position, directionBall, out hit);
+        Physics.Raycast(m_Ball.position, directionBall.normalized, out hit);
 
-        wallHitPosition = hit.point;
-        normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
+        wallHitPosition.Add(hit.point);
+        //actualLenght += Vector3.Distance(m_Ball.position, wallHitPosition[0]);
+        if(actualLenght + Vector3.Distance(m_Ball.position, wallHitPosition[0]) >= m_RenderDistanceLenght)
+        {
+            actualLenght += Vector3.Distance(m_Ball.position, wallHitPosition[0]);
+            normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
+            wallHitPosition.Add(hit.point);
 
-        Vector3 directionWall = Vector3.Reflect(directionBall.normalized, normal);
+            Vector3 directionWall = Vector3.Reflect(directionBall.normalized, normal);
+
+            int i = 1;
+            while (actualLenght - Vector3.Distance(m_Ball.position, wallHitPosition[0]) <= m_RenderDistanceLenght && finalPoint == Vector3.zero)
+            {
+                Physics.Raycast(wallHitPosition[i], directionWall.normalized, out hit);
+                normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
+                wallHitPosition.Add(hit.point);
+
+                directionWall = Vector3.Reflect(directionWall.normalized, normal);
+
+                if (actualLenght + Vector3.Distance(m_Ball.position, wallHitPosition[i]) <= m_RenderDistanceLenght)
+                    finalPoint = CalcFInalPoint(actualLenght, directionWall, wallHitPosition[i]);
+                else 
+                    actualLenght += Vector3.Distance(m_Ball.position, wallHitPosition[i]);
+                i++;
+            }
+        }
+        else
+        {
+            finalPoint = CalcFInalPoint(actualLenght, directionBall, wallHitPosition[0]);
+        }
+
+        m_CalculatedDirection.positionCount = wallHitPosition.Count + 2;
+        for (int i = 0; i < m_CalculatedDirection.positionCount; i++)
+        {
+            if (i == 0)
+                m_CalculatedDirection.SetPosition(i, m_Ball.position);
+            else if (i < m_CalculatedDirection.positionCount - 1)
+                m_CalculatedDirection.SetPosition(i, wallHitPosition[i - 1]);
+            else
+                m_CalculatedDirection.SetPosition(i, finalPoint);
+        }
+    }
+
+    private Vector3 CalcFInalPoint(float actualLenght, Vector3 direction, Vector3 wallHitPosition)
+    {
+        float distanceFromOrigin = m_RenderDistanceLenght - actualLenght;
+        float factor = distanceFromOrigin / direction.magnitude;
+        return wallHitPosition + direction * factor;
     }
 
     private void EnableDisableRenderers(bool value)
