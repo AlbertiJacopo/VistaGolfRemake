@@ -1160,6 +1160,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b25b8813330f6746b514db98f17e32a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MainMenuScreen: {fileID: 0}
+  m_OptionsScreen: {fileID: 0}
+  m_PauseScreen: {fileID: 0}
 --- !u!1 &1216870478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,7 +1221,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.0001
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -1927,8 +1930,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxDistance: 1.2
   m_MinDistance: 0.3
-  m_RotationSpeed: 100
+  m_RotationSpeed: 10
   m_ZoomingSensibility: 300
+  m_MouseZoomingSensibility: 10
 --- !u!4 &1775831940
 Transform:
   m_ObjectHideFlags: 0
