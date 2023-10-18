@@ -51,6 +51,7 @@ public class InputManager : MonoBehaviour
         if (Input.touchCount == 0)
         {
             m_DeadZoneSwingSprite.SetActive(false);
+            EnableDisableRenderers(false);
             return;
         }
 
@@ -199,12 +200,13 @@ public class InputManager : MonoBehaviour
 
         wallHitPosition.Add(hit.point);
 
-        Debug.Log("wallHitPosition: " + Vector3.Distance(m_Ball.position, wallHitPosition[0]));
-
         //actualLenght += Vector3.Distance(m_Ball.position, wallHitPosition[0]);
         if (actualLenght + Vector3.Distance(m_Ball.position, wallHitPosition[0]) <= m_RenderDistanceLenght)
         {
             actualLenght += Vector3.Distance(m_Ball.position, wallHitPosition[0]);
+
+            Debug.Log("actualLenght: " + actualLenght);
+
             normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
             //wallHitPosition.Add(hit.point);
 
@@ -214,21 +216,34 @@ public class InputManager : MonoBehaviour
             while (actualLenght <= m_RenderDistanceLenght && finalPoint == Vector3.zero)
             {
                 Physics.Raycast(wallHitPosition[i], directionWall.normalized, out hit);
-                normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
+                
                 wallHitPosition.Add(hit.point);
 
                 directionWall = Vector3.Reflect(directionWall.normalized, normal);
+                normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
 
-                if (actualLenght + Vector3.Distance(m_Ball.position, wallHitPosition[i]) >= m_RenderDistanceLenght)
+                Debug.Log("totale: " + (actualLenght + Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1])));
+
+                if (actualLenght + Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1]) >= m_RenderDistanceLenght)
+                {
+                    wallHitPosition.RemoveAt(i + 1);
                     finalPoint = CalcFInalPoint(actualLenght, directionWall, wallHitPosition[i]);
+                    Debug.Log("totale if: " + actualLenght);
+                }
                 else
-                    actualLenght += Vector3.Distance(m_Ball.position, wallHitPosition[i]);
+                {
+
+                    actualLenght += Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1]);
+                }
+                    
+
                 i++;
             }
         }
         else
         {
-            finalPoint = CalcFInalPoint(actualLenght, directionBall, wallHitPosition[0]);
+            wallHitPosition.RemoveAt(0);
+            finalPoint = CalcFInalPoint(actualLenght, directionBall, m_Ball.position);
         }
 
         m_CalculatedDirection.positionCount = wallHitPosition.Count + 2;
