@@ -55,7 +55,7 @@ public class InputManager : MonoBehaviour
         }
 
         //Gets the start position and triggers player or camera movement
-        if(Input.touchCount == 1)
+        if (Input.touchCount == 1)
         {
             Touch touch = Input.GetTouch(0);
 
@@ -64,7 +64,7 @@ public class InputManager : MonoBehaviour
             Debug.Log("touch: " + touchPosition);
 
             //taking the first touch
-            if(touch.phase == TouchPhase.Began)
+            if (touch.phase == TouchPhase.Began)
             {
                 m_TouchStartPosition = touchPosition;
                 m_TouchScreenStartPos = touch.position;
@@ -100,10 +100,10 @@ public class InputManager : MonoBehaviour
                     else m_MovePassed = false;
                 }
             }
-            
+
             //move the player if the touch is ended or canceled and the player is stopped
-            else if((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) 
-                     && isInInputZone && m_MovePassed 
+            else if ((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                     && isInInputZone && m_MovePassed
                      && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
             {
                 GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, m_TouchEndPosition);
@@ -113,7 +113,7 @@ public class InputManager : MonoBehaviour
             }
         }
         //Gets the 2 start positions and triggers camera zooming
-        else if(!CheckInInputZoneBall() && Input.touchCount == 2)
+        else if (!CheckInInputZoneBall() && Input.touchCount == 2)
         {
             Touch touch = Input.GetTouch(0);
             Touch touch2 = Input.GetTouch(1);
@@ -164,7 +164,7 @@ public class InputManager : MonoBehaviour
         if (plane.Raycast(ray, out distance))
         { // if plane hit...
             touchPosition = ray.GetPoint(distance); // get the point
-                                                  // pos has the position in the plane you've touched
+                                                    // pos has the position in the plane you've touched
         }
         touchPosition.y = m_Ball.position.y;
 
@@ -178,9 +178,6 @@ public class InputManager : MonoBehaviour
     public bool CheckInInputZoneBall()
     {
         float distance = Vector3.Distance(m_TouchStartPosition, m_Ball.position);
-
-        Debug.Log("m_TouchStartPosition " + m_TouchStartPosition);
-        Debug.Log("m_Ball.position " + m_Ball.position);
 
         if (distance <= m_InputZoneBallRadius)
             return true;
@@ -201,17 +198,20 @@ public class InputManager : MonoBehaviour
         Physics.Raycast(m_Ball.position, directionBall.normalized, out hit);
 
         wallHitPosition.Add(hit.point);
+
+        Debug.Log("wallHitPosition: " + Vector3.Distance(m_Ball.position, wallHitPosition[0]));
+
         //actualLenght += Vector3.Distance(m_Ball.position, wallHitPosition[0]);
-        if(actualLenght + Vector3.Distance(m_Ball.position, wallHitPosition[0]) >= m_RenderDistanceLenght)
+        if (actualLenght + Vector3.Distance(m_Ball.position, wallHitPosition[0]) <= m_RenderDistanceLenght)
         {
             actualLenght += Vector3.Distance(m_Ball.position, wallHitPosition[0]);
             normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
-            wallHitPosition.Add(hit.point);
+            //wallHitPosition.Add(hit.point);
 
             Vector3 directionWall = Vector3.Reflect(directionBall.normalized, normal);
 
-            int i = 1;
-            while (actualLenght - Vector3.Distance(m_Ball.position, wallHitPosition[0]) <= m_RenderDistanceLenght && finalPoint == Vector3.zero)
+            int i = 0;
+            while (actualLenght <= m_RenderDistanceLenght && finalPoint == Vector3.zero)
             {
                 Physics.Raycast(wallHitPosition[i], directionWall.normalized, out hit);
                 normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
@@ -219,9 +219,9 @@ public class InputManager : MonoBehaviour
 
                 directionWall = Vector3.Reflect(directionWall.normalized, normal);
 
-                if (actualLenght + Vector3.Distance(m_Ball.position, wallHitPosition[i]) <= m_RenderDistanceLenght)
+                if (actualLenght + Vector3.Distance(m_Ball.position, wallHitPosition[i]) >= m_RenderDistanceLenght)
                     finalPoint = CalcFInalPoint(actualLenght, directionWall, wallHitPosition[i]);
-                else 
+                else
                     actualLenght += Vector3.Distance(m_Ball.position, wallHitPosition[i]);
                 i++;
             }
@@ -232,14 +232,14 @@ public class InputManager : MonoBehaviour
         }
 
         m_CalculatedDirection.positionCount = wallHitPosition.Count + 2;
-        for (int i = 0; i < m_CalculatedDirection.positionCount; i++)
+        for (int j = 0; j < m_CalculatedDirection.positionCount; j++)
         {
-            if (i == 0)
-                m_CalculatedDirection.SetPosition(i, m_Ball.position);
-            else if (i < m_CalculatedDirection.positionCount - 1)
-                m_CalculatedDirection.SetPosition(i, wallHitPosition[i - 1]);
+            if (j == 0)
+                m_CalculatedDirection.SetPosition(j, m_Ball.position);
+            else if (j < m_CalculatedDirection.positionCount - 1)
+                m_CalculatedDirection.SetPosition(j, wallHitPosition[j - 1]);
             else
-                m_CalculatedDirection.SetPosition(i, finalPoint);
+                m_CalculatedDirection.SetPosition(j, finalPoint);
         }
     }
 

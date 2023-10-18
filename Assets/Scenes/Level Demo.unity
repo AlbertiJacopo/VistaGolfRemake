@@ -1392,7 +1392,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f95c82bf1f73f384698dc3401fbd0c32, type: 2}
+  - {fileID: 2100000, guid: bcec320c46a83e646989743b3b5eefee, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1801,7 +1801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Ball: {fileID: 1543430952}
   m_Camera: {fileID: 1216870481}
-  m_RenderDistanceLenght: 10
+  m_RenderDistanceLenght: 1
   m_DeadZoneSwingRadius: 0.1
   m_DeadZoneSwingSprite: {fileID: 541422976}
   m_InputZoneBallRadius: 0.3
