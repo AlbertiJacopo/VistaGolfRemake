@@ -7,7 +7,7 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField] private Transform m_Ball;
     [SerializeField] private Transform m_Camera;
-    [SerializeField] private float m_RenderDistanceLenght;
+    [SerializeField] private float m_LineMultiplier;
 
     private Vector3 m_TouchStartPosition;
     private Vector3 m_TouchEndPosition = Vector3.zero;
@@ -24,6 +24,7 @@ public class InputManager : MonoBehaviour
 
     private LineRenderer m_InputDirectionRenderer;
     private LineRenderer m_CalculatedDirection;
+    private float m_RenderDistanceLenght;
 
     private void Start()
     {
@@ -193,6 +194,8 @@ public class InputManager : MonoBehaviour
         Vector3 directionBall = -(m_TouchEndPosition - m_TouchStartPosition);
         RaycastHit hit;
 
+        m_RenderDistanceLenght = directionBall.magnitude * m_LineMultiplier;
+
         List<Vector3> wallHitPosition = new List<Vector3>();
         Vector3 normal;
 
@@ -218,7 +221,8 @@ public class InputManager : MonoBehaviour
                 Physics.Raycast(wallHitPosition[i], directionWall.normalized, out hit);
                 
                 wallHitPosition.Add(hit.point);
-
+                Vector3 pastDirectionWall = directionWall;
+        
                 directionWall = Vector3.Reflect(directionWall.normalized, normal);
                 normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
 
@@ -227,12 +231,11 @@ public class InputManager : MonoBehaviour
                 if (actualLenght + Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1]) >= m_RenderDistanceLenght)
                 {
                     wallHitPosition.RemoveAt(i + 1);
-                    finalPoint = CalcFInalPoint(actualLenght, directionWall, wallHitPosition[i]);
+                    finalPoint = CalcFInalPoint(actualLenght, pastDirectionWall, wallHitPosition[i]);
                     Debug.Log("totale if: " + actualLenght);
                 }
-                else
+                else 
                 {
-
                     actualLenght += Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1]);
                 }
                     
