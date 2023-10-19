@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
 {
     [SerializeField] private Transform m_Ball;
     [SerializeField] private Transform m_Camera;
+    [SerializeField] private float m_LineMultiplier;
 
     private Vector3 m_TouchStartPosition;
     private Vector3 m_TouchEndPosition = Vector3.zero;
@@ -21,10 +22,17 @@ public class InputManager : MonoBehaviour
 
     private bool m_MovePassed = false;
 
+    private LineRenderer m_InputDirectionRenderer;
+    private LineRenderer m_CalculatedDirection;
+    private float m_RenderDistanceLenght;
+
     private void Start()
     {
         m_DeadZoneSwingSprite.transform.localScale = new Vector3(m_DeadZoneSwingRadius * 2, m_DeadZoneSwingRadius * 2, 0);
         m_InputZoneBallSprite.transform.localScale = new Vector3(m_InputZoneBallRadius * 2, m_InputZoneBallRadius * 2, 0);
+
+        m_InputDirectionRenderer = m_Ball.transform.GetChild(0).GetComponent<LineRenderer>();
+        m_CalculatedDirection = m_Ball.transform.GetChild(1).GetComponent<LineRenderer>();
     }
 
 
@@ -44,11 +52,12 @@ public class InputManager : MonoBehaviour
         if (Input.touchCount == 0)
         {
             m_DeadZoneSwingSprite.SetActive(false);
+            EnableDisableRenderers(false);
             return;
         }
 
         //Gets the start position and triggers player or camera movement
-        if(Input.touchCount == 1)
+        if (Input.touchCount == 1)
         {
             Touch touch = Input.GetTouch(0);
 
@@ -57,10 +66,11 @@ public class InputManager : MonoBehaviour
             Debug.Log("touch: " + touchPosition);
 
             //taking the first touch
-            if(touch.phase == TouchPhase.Began)
+            if (touch.phase == TouchPhase.Began)
             {
                 m_TouchStartPosition = touchPosition;
                 m_TouchScreenStartPos = touch.position;
+                m_InputDirectionRenderer.SetPosition(0, m_TouchStartPosition);
             }
 
             bool isInInputZone = CheckInInputZoneBall();
@@ -72,31 +82,42 @@ public class InputManager : MonoBehaviour
             if (touch.phase == TouchPhase.Moved)
             {
                 //checking if inside or outside the deadzone
-                if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) > m_DeadZoneSwingRadius)
-                {
-                    m_TouchEndPosition = GetTouchWorldSpace(touch);
-                    m_MovePassed = true;
-                }
-                else m_MovePassed = false;
-
                 if (!isInInputZone)
                 {
                     //rotate camera if outside the inputzone
-                    GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ROTATION, m_TouchScreenStartPos, touch.position);
+                    GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ROTATION, touch.deltaPosition);
+                }
+                else
+                {
+                    if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) > m_DeadZoneSwingRadius)
+                    {
+                        m_TouchEndPosition = GetTouchWorldSpace(touch);
+                        m_MovePassed = true;
+                        m_InputDirectionRenderer.SetPosition(1, m_TouchEndPosition);
+
+                        CalculateWay();
+
+                        EnableDisableRenderers(true);
+                    }
+                    else m_MovePassed = false;
                 }
             }
-            
+
             //move the player if the touch is ended or canceled and the player is stopped
-            else if((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) 
-                     && isInInputZone && m_MovePassed 
+            else if ((touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                     && isInInputZone && m_MovePassed
                      && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
             {
                 GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, m_TouchEndPosition);
                 m_DeadZoneSwingSprite.SetActive(false);
+
+                GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_SWINGS);
+
+                EnableDisableRenderers(false);
             }
         }
         //Gets the 2 start positions and triggers camera zooming
-        else if(!CheckInInputZoneBall() && Input.touchCount == 2)
+        else if (!CheckInInputZoneBall() && Input.touchCount == 2)
         {
             Touch touch = Input.GetTouch(0);
             Touch touch2 = Input.GetTouch(1);
@@ -147,7 +168,7 @@ public class InputManager : MonoBehaviour
         if (plane.Raycast(ray, out distance))
         { // if plane hit...
             touchPosition = ray.GetPoint(distance); // get the point
-                                                  // pos has the position in the plane you've touched
+                                                    // pos has the position in the plane you've touched
         }
         touchPosition.y = m_Ball.position.y;
 
@@ -162,12 +183,96 @@ public class InputManager : MonoBehaviour
     {
         float distance = Vector3.Distance(m_TouchStartPosition, m_Ball.position);
 
-        Debug.Log("m_TouchStartPosition " + m_TouchStartPosition);
-        Debug.Log("m_Ball.position " + m_Ball.position);
-
         if (distance <= m_InputZoneBallRadius)
             return true;
         else
             return false;
+    }
+
+    private void CalculateWay()
+    {
+        Vector3 finalPoint = Vector3.zero;
+        float actualLenght = 0;
+        Vector3 directionBall = -(m_TouchEndPosition - m_TouchStartPosition);
+        RaycastHit hit;
+
+        m_RenderDistanceLenght = directionBall.magnitude * m_LineMultiplier;
+
+        List<Vector3> wallHitPosition = new List<Vector3>();
+        Vector3 normal;
+
+        Physics.Raycast(m_Ball.position, directionBall.normalized, out hit);
+
+        wallHitPosition.Add(hit.point);
+
+        //actualLenght += Vector3.Distance(m_Ball.position, wallHitPosition[0]);
+        if (actualLenght + Vector3.Distance(m_Ball.position, wallHitPosition[0]) <= m_RenderDistanceLenght)
+        {
+            actualLenght += Vector3.Distance(m_Ball.position, wallHitPosition[0]);
+
+            Debug.Log("actualLenght: " + actualLenght);
+
+            normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
+            //wallHitPosition.Add(hit.point);
+
+            Vector3 directionWall = Vector3.Reflect(directionBall.normalized, normal);
+
+            int i = 0;
+            while (actualLenght <= m_RenderDistanceLenght && finalPoint == Vector3.zero)
+            {
+                Physics.Raycast(wallHitPosition[i], directionWall.normalized, out hit);
+                
+                wallHitPosition.Add(hit.point);
+                Vector3 pastDirectionWall = directionWall;
+        
+                directionWall = Vector3.Reflect(directionWall.normalized, normal);
+                normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
+
+                Debug.Log("totale: " + (actualLenght + Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1])));
+
+                if (actualLenght + Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1]) >= m_RenderDistanceLenght)
+                {
+                    wallHitPosition.RemoveAt(i + 1);
+                    finalPoint = CalcFInalPoint(actualLenght, pastDirectionWall, wallHitPosition[i]);
+                    Debug.Log("totale if: " + actualLenght);
+                }
+                else 
+                {
+                    actualLenght += Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1]);
+                }
+                    
+
+                i++;
+            }
+        }
+        else
+        {
+            wallHitPosition.RemoveAt(0);
+            finalPoint = CalcFInalPoint(actualLenght, directionBall, m_Ball.position);
+        }
+
+        m_CalculatedDirection.positionCount = wallHitPosition.Count + 2;
+        for (int j = 0; j < m_CalculatedDirection.positionCount; j++)
+        {
+            if (j == 0)
+                m_CalculatedDirection.SetPosition(j, m_Ball.position);
+            else if (j < m_CalculatedDirection.positionCount - 1)
+                m_CalculatedDirection.SetPosition(j, wallHitPosition[j - 1]);
+            else
+                m_CalculatedDirection.SetPosition(j, finalPoint);
+        }
+    }
+
+    private Vector3 CalcFInalPoint(float actualLenght, Vector3 direction, Vector3 wallHitPosition)
+    {
+        float distanceFromOrigin = m_RenderDistanceLenght - actualLenght;
+        float factor = distanceFromOrigin / direction.magnitude;
+        return wallHitPosition + direction * factor;
+    }
+
+    private void EnableDisableRenderers(bool value)
+    {
+        m_InputDirectionRenderer.gameObject.SetActive(value);
+        m_CalculatedDirection.gameObject.SetActive(value);
     }
 }
