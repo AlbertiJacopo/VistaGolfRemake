@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/scn_MainMenu.unity
     guid: 8867f7cd62c6b0e41a2e3e69c9f67743
   - enabled: 1
-    path: Assets/Scenes/Level Demo.unity
-    guid: 65ef4f57b4ee45a4989f562709ef116d
+    path: Assets/Scenes/Levels/scn_Level_1.unity
+    guid: 152070a6ee86a96429dbfdebfe5223b5
   - enabled: 1
     path: Assets/Scenes/win screen.unity
     guid: 8c8e5604752f8184cabdbe97d938a4b9
