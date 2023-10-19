@@ -43,7 +43,7 @@ public class MovementComponent : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (m_RigidBody.velocity.y == 0)
+        if (m_LastVelocity.y <= 0.1 && m_LastVelocity.y >= -0.1)
         {
             
             Vector3 normal = new Vector3(other.GetContact(0).normal.x, 0f, other.GetContact(0).normal.z);
