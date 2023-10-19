@@ -14,6 +14,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHAPREMULTIPLY_ON
+  - _ALPHATEST_ON
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords: []
   m_LightmapFlags: 2
@@ -42,20 +43,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaClip: 0
+    - _AlphaClip: 1
     - _AlphaToMask: 0
-    - _Blend: 0
+    - _Blend: 2
     - _BlendModePreserveSpecular: 1
     - _CastShadows: 1
-    - _Cull: 0
+    - _Cull: 2
     - _Depht_Fade: 9.93
-    - _DstBlend: 10
+    - _DstBlend: 1
     - _Height: 0.09
     - _Noise_Scale: 1.37
     - _Octave_Effector: 1.64
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Smoothness: 1.17
     - _SrcBlend: 1
     - _Surface: 1
     - _Wave_Scroll_Speed: 0.22
@@ -65,9 +67,9 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 0.123398, g: 0.4433962, b: 0.4301902, a: 0}
-    - _Deep: {r: 0.078097194, g: 0.41110122, b: 0.4245283, a: 1}
+    - _Deep: {r: 0.08802065, g: 0.42378753, b: 0.4339623, a: 1}
     - _Foam_Color: {r: 0.27847987, g: 0.3962264, b: 0.39061943, a: 0}
-    - _Shallow: {r: 0.09807763, g: 0.6898759, b: 0.7169812, a: 1}
+    - _Shallow: {r: 0, g: 0.9758129, b: 1.0207515, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &8576832473192481687
 MonoBehaviour:
