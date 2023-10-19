@@ -8,12 +8,25 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    private TextMeshProUGUI m_Score;
-    private TextMeshProUGUI m_SwingsCount;
+    [SerializeField] private TextMeshProUGUI m_Score;
+    [SerializeField] private TextMeshProUGUI m_UISwings;
+
+    private float m_SwingsCount;
 
     [SerializeField] private Canvas m_MainMenuScreen;
     [SerializeField] private Canvas m_OptionsScreen;
     [SerializeField] private Canvas m_PauseScreen;
+
+    private void Start()
+    {
+        GameManager.instance.EventManager.Register(Constants.UPDATE_SWINGS, UpdateSwingsCount);
+    }
+
+    public void UpdateSwingsCount(object[] param)
+    {
+        m_SwingsCount++;
+        m_UISwings.text = "Swings: " + m_SwingsCount.ToString();
+    }
 
     public void Pause()
     {
