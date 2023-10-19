@@ -82,7 +82,7 @@ public class InputManager : MonoBehaviour
                 if (!isInInputZone)
                 {
                     //rotate camera if outside the inputzone
-                    GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ROTATION, m_TouchScreenStartPos, touch.position);
+                    GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ROTATION, touch.deltaPosition);
                 }
             }
             
