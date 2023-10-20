@@ -342,7 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7001405308646674205}
   m_Layer: 0
-  m_Name: C3D_Tree_01a
+  m_Name: 3D_Tree_01a
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
