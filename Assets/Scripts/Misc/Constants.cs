@@ -13,4 +13,6 @@ public static class Constants
     public static string UPDATE_LEVEL_SWINGS = "UpdateSwings";
     public static string UPDATE_TOTAL_SWINGS = "UpdateTotalSwings";
     public static string SAVE_BALL_POSITION = "SaveBallPosition";
+    public static string SAVE_FLOAT = "SaveFloat";
+    public static string LOAD_FLOAT = "LoadFloat";
 }
