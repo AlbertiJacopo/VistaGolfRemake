@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6369791192086005141}
   - component: {fileID: 6747575464495251711}
   - component: {fileID: 1496428116486428188}
+  - component: {fileID: 7254925085189398635}
   m_Layer: 0
   m_Name: C3D_Pyramid_01a
   m_TagString: Untagged
@@ -106,3 +107,24 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2627754299479874707, guid: e300d16862d9ecb42a0c4eac290df415, type: 3}
+--- !u!95 &7254925085189398635
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7945975488784346241}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4152ec4e6945d914aa80911e968889ac, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
