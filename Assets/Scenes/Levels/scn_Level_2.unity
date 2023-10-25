@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18380138, g: 0.22841907, b: 0.30007917, a: 1}
+  m_IndirectSpecularColor: {r: 0.18376257, g: 0.22828454, b: 0.299543, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -498,7 +498,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b,
     type: 3}
-  m_Color: {r: 0.00965035, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.32485738, g: 0.5849056, b: 0.32280168, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -852,7 +852,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1805043804}
-  - {fileID: 2948557365872257895}
   - {fileID: 645710801}
   - {fileID: 292699333}
   - {fileID: 1690430103}
@@ -1311,7 +1310,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 612781493}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: fd9235e7c1dd3874ab55f5cfdb8d1248, type: 2}
   m_CullingMode: 0
@@ -5919,7 +5918,7 @@ Transform:
   m_LocalScale: {x: 0.31590784, y: 0.31590784, z: 0.31590784}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 487104568}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &4080346551668609032
 MeshRenderer:
@@ -5976,4 +5975,5 @@ SceneRoots:
   - {fileID: 2054675298}
   - {fileID: 508996554}
   - {fileID: 2058719696}
+  - {fileID: 2948557365872257895}
   - {fileID: 612781494}
