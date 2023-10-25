@@ -12,4 +12,6 @@ public static class Constants
     public static string STOP_CAMERA_TRACKING = "StopCameraTracking";
     public static string WIN_GAME = "WinGame";
     public static string UPDATE_SWINGS = "UpdateSwings";
+    public static string SAVE_FLOAT = "SaveFloat";
+    public static string LOAD_FLOAT = "LoadFloat";
 }
