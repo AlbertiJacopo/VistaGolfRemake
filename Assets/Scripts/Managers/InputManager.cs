@@ -19,6 +19,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private GameObject m_DeadZoneSwingSprite;
     [SerializeField] private float m_InputZoneBallRadius;
     [SerializeField] private GameObject m_InputZoneBallSprite;
+    [SerializeField] private float m_MaxDistanceSwing;
 
     private bool m_MovePassed = false;
 
@@ -89,7 +90,8 @@ public class InputManager : MonoBehaviour
                 }
                 else
                 {
-                    if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) > m_DeadZoneSwingRadius)
+                    if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) > m_DeadZoneSwingRadius &&
+                        Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) <= m_MaxDistanceSwing)
                     {
                         m_TouchEndPosition = GetTouchWorldSpace(touch);
                         m_MovePassed = true;
