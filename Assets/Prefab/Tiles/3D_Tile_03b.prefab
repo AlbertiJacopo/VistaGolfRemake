@@ -572,7 +572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8521795844225791227}
   m_Layer: 0
-  m_Name: 3D_Tile_03b + 3D_Tile_05e
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

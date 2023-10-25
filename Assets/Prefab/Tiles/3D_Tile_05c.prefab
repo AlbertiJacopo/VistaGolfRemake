@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3077269239120503397}
   m_Layer: 0
-  m_Name: 3D_Tile_05c
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
