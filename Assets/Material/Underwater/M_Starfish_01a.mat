@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_UWPurple_01a
+  m_Name: M_Starfish_01a
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -114,9 +114,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.6333167, g: 0.23700002, b: 0.79, a: 1}
-    - _Color: {r: 0.63331664, g: 0.23699999, b: 0.78999996, a: 1}
-    - _EmissionColor: {r: 0.09411765, g: 0.06666667, b: 0.20196079, a: 1}
+    - _BaseColor: {r: 1, g: 0.29803923, b: 0.29803923, a: 1}
+    - _Color: {r: 1, g: 0.2980392, b: 0.2980392, a: 1}
+    - _EmissionColor: {r: 0.94509804, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1745579885176523858

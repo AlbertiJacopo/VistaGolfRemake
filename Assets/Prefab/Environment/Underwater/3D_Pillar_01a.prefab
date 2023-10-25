@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 42380024bccd5c24bb38e61d14da5e44, type: 3}
+  - {fileID: 2100000, guid: 1711596947115c548aaace245d93cb7b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,7 +144,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 42380024bccd5c24bb38e61d14da5e44, type: 3}
+  - {fileID: 2100000, guid: 1711596947115c548aaace245d93cb7b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -227,7 +227,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 42380024bccd5c24bb38e61d14da5e44, type: 3}
+  - {fileID: 2100000, guid: 1711596947115c548aaace245d93cb7b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -310,7 +310,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 42380024bccd5c24bb38e61d14da5e44, type: 3}
+  - {fileID: 2100000, guid: 1711596947115c548aaace245d93cb7b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -430,7 +430,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 42380024bccd5c24bb38e61d14da5e44, type: 3}
+  - {fileID: 2100000, guid: 1711596947115c548aaace245d93cb7b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -513,7 +513,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 42380024bccd5c24bb38e61d14da5e44, type: 3}
+  - {fileID: 2100000, guid: 1711596947115c548aaace245d93cb7b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
