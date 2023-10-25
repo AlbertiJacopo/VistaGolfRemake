@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Water_01
+  m_Name: MS_Sand_01a
   m_Shader: {fileID: -6465566751694194690, guid: 094e9c2634a6f574397f5b22dac84452,
     type: 3}
   m_Parent: {fileID: 0}
@@ -67,9 +67,9 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 0.123398, g: 0.4433962, b: 0.4301902, a: 0}
-    - _Deep: {r: 0.08802065, g: 0.42378753, b: 0.4339623, a: 1}
+    - _Deep: {r: 0.31132078, g: 0.23377393, b: 0.057271283, a: 1}
     - _Foam_Color: {r: 0.27847987, g: 0.3962264, b: 0.39061943, a: 0}
-    - _Shallow: {r: 0, g: 0.9758129, b: 1.0207515, a: 1}
+    - _Shallow: {r: 0.6415094, g: 0.47532964, b: 0.105909556, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &8576832473192481687
 MonoBehaviour:
