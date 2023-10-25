@@ -24,6 +24,8 @@ public class MovementComponent : MonoBehaviour
 
     public void Movement(object[] param)
     {
+        GameManager.instance.EventManager.TriggerEvent(Constants.SAVE_BALL_POSITION, gameObject.transform.position);
+
         Vector3 startPos = (Vector3)param[0];
         Vector3 endPos = (Vector3)param[1];
 

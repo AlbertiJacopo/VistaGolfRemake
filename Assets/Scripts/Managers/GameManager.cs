@@ -10,8 +10,6 @@ public class GameManager : Singleton<GameManager>
     private AudioManager m_AudioManager;
     private EventManager m_EventManager = Factory.CreateEventManager();
 
-    public UIManager UIManager { get => m_UIManager; }
-    public AudioManager AudioManager { get => m_AudioManager; }
     public EventManager EventManager { get => m_EventManager; }
 
     private void Start()
