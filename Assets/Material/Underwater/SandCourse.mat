@@ -7,13 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_CourseGreen_01a
+  m_Name: SandCourse
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_Parent: {fileID: 2100000, guid: 21351130641b401479c0e7344b653e96, type: 2}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
+  m_Parent: {fileID: 2100000, guid: d050c45f45b66e94f92298c56974bab1, type: 2}
+  m_ModifiedSerializedProperties: 2
+  m_ValidKeywords:
+  - _EMISSION
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -27,10 +28,11 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _BaseColor: {r: 0.05807228, g: 0.4245283, b: 0.09339332, a: 1}
-    - _Color: {r: 0.058072254, g: 0.42452827, b: 0.09339329, a: 1}
+    - _BaseColor: {r: 0.516, g: 0.48279208, b: 0.35762376, a: 1}
+    - _Color: {r: 0.516, g: 0.48279202, b: 0.35762373, a: 1}
+    - _EmissionColor: {r: 0.3962264, g: 0.115780436, b: 0, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &4315142889351570640
+--- !u!114 &8719097963751196888
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

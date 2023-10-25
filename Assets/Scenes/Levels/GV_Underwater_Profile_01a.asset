@@ -18,16 +18,16 @@ MonoBehaviour:
     m_Value: 0
   contrast:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -14
   colorFilter:
     m_OverrideState: 1
-    m_Value: {r: 0.61636704, g: 0.764151, b: 0.73079836, a: 1}
+    m_Value: {r: 0.45490196, g: 0.8666667, b: 0.75145966, a: 1}
   hueShift:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: -0
   saturation:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: -17
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38,7 +38,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: Global Volume Profile
+  m_Name: GV_Underwater_Profile_01a
   m_EditorClassIdentifier: 
   components:
   - {fileID: -668954026539523652}
@@ -59,13 +59,13 @@ MonoBehaviour:
   active: 1
   lift:
     m_OverrideState: 1
-    m_Value: {x: 0.9133911, y: 0.9673485, z: 1, w: 0}
+    m_Value: {x: 0.91481304, y: 0.94672406, z: 1, w: 0}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 0.9851027, y: 0.993404, z: 1, w: 0}
+    m_Value: {x: 0.9766309, y: 0.9870029, z: 1, w: 0}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 0.9189504, y: 1, z: 0.987218, w: 0}
+    m_Value: {x: 0.83641684, y: 1, z: 0.96934086, w: 0}
 --- !u!114 &8616012491250551775
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -81,10 +81,10 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0.7553947, y: 0.88031524, z: 1, w: 0}
+    m_Value: {x: 0.7029047, y: 0.7270095, z: 1, w: 0}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 0.79336345, y: 0.9284618, z: 1, w: 0}
+    m_Value: {x: 0.86794114, y: 0.9588574, z: 1, w: 0}
   highlights:
     m_OverrideState: 0
     m_Value: {x: 0.8776982, y: 0.9401584, z: 1, w: 0}

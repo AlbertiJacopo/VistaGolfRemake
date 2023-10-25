@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 1592932651}
   m_IndirectSpecularColor: {r: 0.18380138, g: 0.22841907, b: 0.30007917, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -699,7 +699,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0280ae5d1a837e54985ff003684e9083, type: 3}
-  m_Color: {r: 0.32485738, g: 0.5849056, b: 0.32280168, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3498,9 +3498,9 @@ MonoBehaviour:
   m_Ball: {fileID: 521580107}
   m_Camera: {fileID: 1216870481}
   m_LineMultiplier: 1
-  m_DeadZoneSwingRadius: 0.1
+  m_DeadZoneSwingRadius: 0.4
   m_DeadZoneSwingSprite: {fileID: 541422976}
-  m_InputZoneBallRadius: 0.3
+  m_InputZoneBallRadius: 0.95
   m_InputZoneBallSprite: {fileID: 227393227}
 --- !u!4 &1430028650 stripped
 Transform:
@@ -4783,8 +4783,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32000d065655c84e825abbefecd20bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxDistance: 1.2
-  m_MinDistance: 0.3
+  m_MaxDistance: 4
+  m_MinDistance: 2.1
   m_RotationSpeed: 7
   m_ZoomingSensibility: 4
   m_MouseZoomingSensibility: 0
