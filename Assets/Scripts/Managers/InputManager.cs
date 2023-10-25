@@ -111,7 +111,7 @@ public class InputManager : MonoBehaviour
                 GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, m_TouchEndPosition);
                 m_DeadZoneSwingSprite.SetActive(false);
 
-                GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_SWINGS);
+                GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_LEVEL_SWINGS);
 
                 EnableDisableRenderers(false);
             }

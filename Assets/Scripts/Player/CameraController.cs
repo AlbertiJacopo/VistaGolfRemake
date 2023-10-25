@@ -34,13 +34,11 @@ public class CameraController : MonoBehaviour
 
     private float m_RotationY;
     private Vector3 m_OriginalRotation;
-    private float m_Direction = -1;
 
 
     private void Start()
     {
         GameManager.instance.EventManager.Register(Constants.UPDATE_CAMERA_ROTATION, UpdateRotation);
-        GameManager.instance.EventManager.Register(Constants.STOP_CAMERA_ROTATION, StopRotation);
         GameManager.instance.EventManager.Register(Constants.UPDATE_CAMERA_ZOOMING, UpdateZooming);
         GameManager.instance.EventManager.Register(Constants.STOP_CAMERA_ZOOMING, StopZooming);
         GameManager.instance.EventManager.Register(Constants.START_CAMERA_TRACKING, StartTracking);
@@ -84,30 +82,11 @@ public class CameraController : MonoBehaviour
 
     public void UpdateRotation(object[] param)
     {
-        //m_StartPos = (Vector2)param[0];
-        //m_CurrentPos = (Vector2)param[1];
-
         Vector2 delta = (Vector2)param[0];
 
-        //Quaternion startingRotation = transform.rotation;
-        //Quaternion wantedRotation = Quaternion.Euler(0f, m_StartPos.x - m_CurrentPos.x, 0f);
-
-        //float deltaY = m_StartPos.y - m_CurrentPos.y;
-        m_RotationY += delta.x * Time.deltaTime * m_RotationSpeed * m_Direction;
+        m_RotationY += delta.x * Time.deltaTime * m_RotationSpeed;
 
         transform.eulerAngles = new Vector3(0f, m_RotationY, 0f);
-
-        ////float angle = Quaternion.Angle(startingRotation, wantedRotation);
-
-        ////transform.rotation = Quaternion.Euler(0f, angle * m_RotationSpeed, 0f);
-
-        //transform.rotation = Quaternion.RotateTowards(startingRotation, wantedRotation, Time.deltaTime * m_RotationSpeed);
-
-    }
-
-    public void StopRotation(object[] param)
-    {
-
     }
 
     #endregion
