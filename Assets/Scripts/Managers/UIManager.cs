@@ -12,9 +12,10 @@ public class UIManager : MonoBehaviour
     private float m_TotalSwingsCount;
     private float m_LevelSwingsCount;
 
-    [SerializeField] private Canvas m_MainMenuScreen;
-    [SerializeField] private Canvas m_OptionsScreen;
+    [SerializeField] private GameObject m_MainMenuScreen;
+    [SerializeField] private GameObject m_OptionsScreen;
     [SerializeField] private Canvas m_PauseScreen;
+    [SerializeField] private GameObject m_LevelSelectScreen;
 
     private void Start()
     {
@@ -63,9 +64,19 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// return to the main menu if in the option menu
     /// </summary>
-    public void GoBack()
+    public void GoBackFromOption()
     {
         ToggleUIScreen(m_MainMenuScreen, m_OptionsScreen);
+    }
+    
+    public void GoBackFromLevelSelect()
+    {
+        ToggleUIScreen(m_MainMenuScreen, m_LevelSelectScreen);
+    }
+
+    public void GoToLevelSelect()
+    {
+        ToggleUIScreen(m_LevelSelectScreen, m_MainMenuScreen);
     }
 
     /// <summary>
@@ -99,21 +110,26 @@ public class UIManager : MonoBehaviour
     /// </summary>
     /// <param name="selectedScreen">the screen you want to active or disactive</param>
     /// <param name="previousScreen">the previous screen</param>
-    public void ToggleUIScreen(Canvas selectedScreen, Canvas previousScreen)
+    public void ToggleUIScreen(GameObject selectedScreen, GameObject previousScreen)
     {
         if (!selectedScreen.gameObject.activeInHierarchy)
         {
-            selectedScreen.gameObject.SetActive(true);
-            previousScreen.gameObject.SetActive(false);
+            selectedScreen.SetActive(true);
+            previousScreen.SetActive(false);
             //m_menuSound.PlayMenuClick();
             return;
         }
         else
         {
-            previousScreen.gameObject.SetActive(true);
-            selectedScreen.gameObject.SetActive(false);
+            previousScreen.SetActive(true);
+            selectedScreen.SetActive(false);
             //m_menuSound.PlayBackButton();
             return;
         }
+    }
+
+    public void LoadSceneNumber(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 }
