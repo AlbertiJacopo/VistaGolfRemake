@@ -90,12 +90,19 @@ public class InputManager : MonoBehaviour
                 }
                 else
                 {
-                    if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) > m_DeadZoneSwingRadius &&
-                        Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) <= m_MaxDistanceSwing)
+                    if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) > m_DeadZoneSwingRadius)
                     {
-                        m_TouchEndPosition = GetTouchWorldSpace(touch);
-                        m_MovePassed = true;
+                        if(Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) <= m_MaxDistanceSwing)
+                            m_TouchEndPosition = GetTouchWorldSpace(touch);
+                        else
+                        {
+                            Vector3 dir = GetTouchWorldSpace(touch) - m_TouchStartPosition;
+                            m_TouchEndPosition = m_TouchStartPosition + (m_MaxDistanceSwing * dir.normalized);
+                        }
+
                         m_InputDirectionRenderer.SetPosition(1, m_TouchEndPosition);
+
+                        m_MovePassed = true;
 
                         CalculateWay();
 
