@@ -19,6 +19,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private GameObject m_DeadZoneSwingSprite;
     [SerializeField] private float m_InputZoneBallRadius;
     [SerializeField] private GameObject m_InputZoneBallSprite;
+    [SerializeField] private float m_MaxDistanceSwing;
 
     private bool m_MovePassed = false;
 
@@ -63,7 +64,7 @@ public class InputManager : MonoBehaviour
 
             Vector3 touchPosition = GetTouchWorldSpace(touch);
 
-            Debug.Log("touch: " + touchPosition);
+            //Debug.Log("touch: " + touchPosition);
 
             //taking the first touch
             if (touch.phase == TouchPhase.Began)
@@ -91,13 +92,22 @@ public class InputManager : MonoBehaviour
                 {
                     if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) > m_DeadZoneSwingRadius)
                     {
-                        m_TouchEndPosition = GetTouchWorldSpace(touch);
-                        m_MovePassed = true;
+                        if(Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) <= m_MaxDistanceSwing)
+                            m_TouchEndPosition = GetTouchWorldSpace(touch);
+                        else
+                        {
+                            Vector3 dir = GetTouchWorldSpace(touch) - m_TouchStartPosition;
+                            m_TouchEndPosition = m_TouchStartPosition + (m_MaxDistanceSwing * dir.normalized);
+                        }
+
                         m_InputDirectionRenderer.SetPosition(1, m_TouchEndPosition);
+
+                        m_MovePassed = true;
 
                         CalculateWay();
 
-                        EnableDisableRenderers(true);
+                        if (m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
+                            EnableDisableRenderers(true);
                     }
                     else m_MovePassed = false;
                 }
@@ -111,7 +121,7 @@ public class InputManager : MonoBehaviour
                 GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, m_TouchEndPosition);
                 m_DeadZoneSwingSprite.SetActive(false);
 
-                GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_SWINGS);
+                GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_LEVEL_SWINGS);
 
                 EnableDisableRenderers(false);
             }
@@ -146,7 +156,7 @@ public class InputManager : MonoBehaviour
     /// <param name="showing"></param>
     private void ShowHideSprite(GameObject Sprite, Vector3 position, bool showing)
     {
-        Sprite.transform.position = new Vector3(position.x, position.y - (m_Ball.transform.localScale.y / 2 - 0.00001f), position.z);
+        Sprite.transform.position = new Vector3(position.x, m_Ball.transform.position.y, position.z);
         Sprite.SetActive(showing);
     }
 
@@ -228,13 +238,13 @@ public class InputManager : MonoBehaviour
                 directionWall = Vector3.Reflect(directionWall.normalized, normal);
                 normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
 
-                Debug.Log("totale: " + (actualLenght + Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1])));
+                //Debug.Log("totale: " + (actualLenght + Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1])));
 
                 if (actualLenght + Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1]) >= m_RenderDistanceLenght)
                 {
                     wallHitPosition.RemoveAt(i + 1);
                     finalPoint = CalcFInalPoint(actualLenght, pastDirectionWall, wallHitPosition[i]);
-                    Debug.Log("totale if: " + actualLenght);
+                    //Debug.Log("totale if: " + actualLenght);
                 }
                 else 
                 {

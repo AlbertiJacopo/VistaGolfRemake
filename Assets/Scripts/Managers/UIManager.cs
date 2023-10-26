@@ -9,7 +9,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_Score;
     [SerializeField] private TextMeshProUGUI m_UISwings;
 
-    private float m_SwingsCount;
+    private float m_TotalSwingsCount;
+    private float m_LevelSwingsCount;
 
     [SerializeField] private Canvas m_MainMenuScreen;
     [SerializeField] private Canvas m_OptionsScreen;
@@ -17,35 +18,77 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.instance.EventManager.Register(Constants.UPDATE_SWINGS, UpdateSwingsCount);
+        GameManager.instance.EventManager.Register(Constants.UPDATE_LEVEL_SWINGS, UpdateLevelSwingsCount);
+        //GameManager.instance.EventManager.Register(Constants.UPDATE_TOTAL_SWINGS, UpdateTotalSwings);
     }
 
-    public void UpdateSwingsCount(object[] param)
+    /// <summary>
+    /// update the total count of swings in the entire game
+    /// </summary>
+    /// <param name="param"></param>
+    public void UpdateTotalSwings()
     {
-        m_SwingsCount++;
-        m_UISwings.text = "Swings: " + m_SwingsCount.ToString();
+        m_TotalSwingsCount += m_LevelSwingsCount;
     }
 
+    /// <summary>
+    /// restarts the current level
+    /// </summary>
+    public void RestartLevel()
+    {
+        m_TotalSwingsCount -= m_LevelSwingsCount;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+        
+    }
+
+    /// <summary>
+    /// update the count of swings for the level
+    /// </summary>
+    /// <param name="param"></param>
+    public void UpdateLevelSwingsCount(object[] param)
+    {
+        m_LevelSwingsCount++;
+        UpdateTotalSwings();
+        m_UISwings.text = "Swings: " + m_LevelSwingsCount.ToString();
+    }
+
+    /// <summary>
+    /// pause screen
+    /// </summary>
     public void Pause()
     {
         m_PauseScreen.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// return to the main menu if in the option menu
+    /// </summary>
     public void GoBack()
     {
         ToggleUIScreen(m_MainMenuScreen, m_OptionsScreen);
     }
 
+    /// <summary>
+    /// start game
+    /// </summary>
+    /// <param name="sceneName"></param>
     public void StartGame(string sceneName)
     {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 
+    /// <summary>
+    /// resume the ame if in pause menu
+    /// </summary>
     public void Resume()
     {
         m_PauseScreen.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// return to main menu
+    /// </summary>
+    /// <param name="sceneName"></param>
     public void GoToMainMenu(string sceneName)
     {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);

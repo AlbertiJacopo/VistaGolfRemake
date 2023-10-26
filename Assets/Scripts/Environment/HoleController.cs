@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //[RequireComponent(typeof(CircleCollider2D))]
 public class HoleController : MonoBehaviour
@@ -11,7 +12,9 @@ public class HoleController : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            GameManager.instance.EventManager.TriggerEvent(Constants.WIN_GAME, m_NextLevel);
+            Scene actualScene = SceneManager.GetActiveScene();
+            
+            GameManager.instance.EventManager.TriggerEvent(Constants.WIN_GAME, actualScene.buildIndex + 1);
         }
     }
 }

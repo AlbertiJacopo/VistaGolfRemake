@@ -94,7 +94,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 86be6bdb1e840c449883162e18ab8b32, type: 3}
+  - {fileID: 2100000, guid: 49d6f6c333a6ff24b9ac68cb5846f1ba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -200,7 +200,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 86be6bdb1e840c449883162e18ab8b32, type: 3}
+  - {fileID: 2100000, guid: 21351130641b401479c0e7344b653e96, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -306,7 +306,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 86be6bdb1e840c449883162e18ab8b32, type: 3}
+  - {fileID: 2100000, guid: 21351130641b401479c0e7344b653e96, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -360,7 +360,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8470460376537790016}
   m_Layer: 0
-  m_Name: 3D_Tile_05b
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
