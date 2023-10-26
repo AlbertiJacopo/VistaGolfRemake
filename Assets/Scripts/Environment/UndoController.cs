@@ -6,6 +6,7 @@ using UnityEngine;
 public class UndoController : MonoBehaviour
 {
     private Vector3 m_BallPosition;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +20,17 @@ public class UndoController : MonoBehaviour
 
     public void Undo(GameObject ball)
     {
-        ball.transform.position = m_BallPosition;
+        if(ball.GetComponent<Rigidbody>().velocity.magnitude == 0)
+            ball.transform.position = m_BallPosition;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        Debug.Log("velocity pre undo: " + other.gameObject.GetComponent<Rigidbody>().velocity);
         Undo(other.gameObject);
+        Debug.Log("velocity post undo: " + other.gameObject.GetComponent<Rigidbody>().velocity);
+        other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        Debug.Log("velocity post reset: " + other.gameObject.GetComponent<Rigidbody>().velocity);
     }
 }
