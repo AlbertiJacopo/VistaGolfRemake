@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4765124545994059233}
   m_Layer: 0
-  m_Name: New Prefab
+  m_Name: 3D_Anchor_01a
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
