@@ -220,7 +220,7 @@ public class InputManager : MonoBehaviour
         {
             actualLenght += Vector3.Distance(m_Ball.position, wallHitPosition[0]);
 
-            Debug.Log("actualLenght: " + actualLenght);
+            //Debug.Log("actualLenght: " + actualLenght);
 
             normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
             //wallHitPosition.Add(hit.point);
