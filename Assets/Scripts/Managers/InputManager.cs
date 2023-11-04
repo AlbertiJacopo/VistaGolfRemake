@@ -71,7 +71,7 @@ public class InputManager : MonoBehaviour
             {
                 m_TouchStartPosition = touchPosition;
                 m_TouchScreenStartPos = touch.position;
-                m_InputDirectionRenderer.SetPosition(0, m_TouchStartPosition);
+                m_InputDirectionRenderer.SetPosition(0, m_Ball.position);
             }
 
             bool isInInputZone = CheckInInputZoneBall();
@@ -100,7 +100,7 @@ public class InputManager : MonoBehaviour
                             m_TouchEndPosition = m_TouchStartPosition + (m_MaxDistanceSwing * dir.normalized);
                         }
 
-                        m_InputDirectionRenderer.SetPosition(1, m_TouchEndPosition);
+                        m_InputDirectionRenderer.SetPosition(1, m_TouchEndPosition - (m_TouchStartPosition - m_Ball.position));
 
                         m_MovePassed = true;
 
