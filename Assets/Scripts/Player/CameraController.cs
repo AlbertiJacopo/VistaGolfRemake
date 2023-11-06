@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour
     private Vector3 m_BallPosition;
 
     private float m_CurrentScrollDelta = 0f;
-    float m_CameraSize;
+    private float m_CameraZoomValue;
 
     private bool m_CanZoom = false;
     private bool m_CanTrack = false;
@@ -138,12 +138,8 @@ public class CameraController : MonoBehaviour
         float startDistance = Vector2.Distance(m_StartPos, m_StartPos2);
         float currentDistance = Vector2.Distance(m_CurrentPos, m_CurrentPos2);
 
-        //float newOrthographicSize = (startDistance / currentDistance) * m_ZoomingSensibility;
-        //m_Camera.orthographicSize = newOrthographicSize;
-
-
-        m_CameraSize -= ((currentDistance - startDistance) / m_ZoomingSensibility);
-        m_Camera.orthographicSize = m_CameraSize;
+        m_CameraZoomValue = ((currentDistance - startDistance) / m_ZoomingSensibility);
+        m_Camera.orthographicSize -= m_CameraZoomValue;
         CheckZoomingDistance();
     }
 
