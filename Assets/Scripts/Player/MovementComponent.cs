@@ -11,10 +11,14 @@ public class MovementComponent : MonoBehaviour
     [SerializeField] private float m_MaxSpeed;
     [SerializeField] private float m_ReducePercentage;
 
+    [SerializeField] private float m_BallAppearTimer;
+
     private void Start()
     {
         GameManager.instance.EventManager.Register(Constants.MOVEMENT_PLAYER, Movement);
+        GameManager.instance.EventManager.Register(Constants.TOGGLE_BALL, BallToggle);
         m_RigidBody = GetComponent<Rigidbody>();
+        StartCoroutine(WaitTimeBallAppear());
     }
     private void Update()
     {
@@ -25,6 +29,7 @@ public class MovementComponent : MonoBehaviour
     public void Movement(object[] param)
     {
         GameManager.instance.EventManager.TriggerEvent(Constants.SAVE_BALL_POSITION, gameObject.transform.position);
+        GameManager.instance.EventManager.TriggerEvent(Constants.PLAY_SOUND, Constants.SFX_HITBALL);
 
         Vector3 startPos = (Vector3)param[0];
         Vector3 endPos = (Vector3)param[1];
@@ -35,6 +40,7 @@ public class MovementComponent : MonoBehaviour
 
     public void Bounce(Vector3 normal)
     {
+        GameManager.instance.EventManager.TriggerEvent(Constants.PLAY_SOUND, Constants.SFX_HITWALL);
         float speed = m_LastVelocity.magnitude;
         Vector3 direction = Vector3.Reflect(m_LastVelocity.normalized, normal);
 
@@ -57,4 +63,19 @@ public class MovementComponent : MonoBehaviour
             Bounce(other.GetContact(0).normal);
         }
     }
+
+    private IEnumerator WaitTimeBallAppear()
+    {
+        yield return new WaitForSeconds(m_BallAppearTimer);
+        BallToggle(null);
+    }
+
+    public void BallToggle(object[] param)
+    {
+        if (gameObject.activeSelf)
+            gameObject.SetActive(false);
+        else if (!gameObject.activeSelf)
+            gameObject.SetActive(true);
+    }
+
 }
