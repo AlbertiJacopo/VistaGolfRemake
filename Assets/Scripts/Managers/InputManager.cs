@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour
     private Vector3 m_TouchEndPosition = Vector3.zero;
     private Vector2 m_TouchScreenStartPos;
     private Vector2 m_TouchScreenStartPos2;
+    private Vector3 m_TouchTempPosition;
 
     [Header("Ranges")]
     [SerializeField] private float m_DeadZoneSwingRadius;
@@ -92,8 +93,8 @@ public class InputManager : MonoBehaviour
                 {
                     if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) > m_DeadZoneSwingRadius)
                     {
-                        Vector3 direction = m_TouchStartPosition - GetTouchWorldSpace(touch) ;
-                        m_TouchStartPosition = m_TouchStartPosition + (m_DeadZoneSwingRadius * direction.normalized);
+                        Vector3 direction = m_TouchStartPosition - GetTouchWorldSpace(touch);
+                        m_TouchTempPosition = m_TouchStartPosition + (m_DeadZoneSwingRadius * direction.normalized);
                         m_InputDirectionRenderer.SetPosition(0, m_Ball.position);
 
                         if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) <= m_MaxDistanceSwing)
@@ -124,7 +125,7 @@ public class InputManager : MonoBehaviour
                      && isInInputZone && m_MovePassed
                      && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
             {
-                GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, m_TouchEndPosition);
+                GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchTempPosition, m_TouchEndPosition);
                 m_DeadZoneSwingSprite.SetActive(false);
 
                 GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_LEVEL_SWINGS);
