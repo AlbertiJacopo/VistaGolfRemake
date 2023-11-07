@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
     {
         m_LevelSwingsCount++;
         UpdateTotalSwings();
-        m_UISwings.text = "Swings: " + m_LevelSwingsCount.ToString();
+        m_UISwings.text = m_LevelSwingsCount.ToString();
     }
 
     /// <summary>
