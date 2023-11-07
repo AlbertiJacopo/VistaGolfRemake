@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9186717394421222944}
   m_Layer: 0
-  m_Name: 3D_Uderwater_Composition_02a
+  m_Name: 3D_Underwater_Composition_02a
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

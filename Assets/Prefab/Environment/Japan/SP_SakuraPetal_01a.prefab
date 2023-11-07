@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5226808756986583379}
   - component: {fileID: 5226808756986583378}
   m_Layer: 0
-  m_Name: Falling Sakura Petals
+  m_Name: SP_SakuraPetal_01a
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
