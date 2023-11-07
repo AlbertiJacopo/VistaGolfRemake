@@ -15,4 +15,6 @@ public static class Constants
     public static string SAVE_BALL_POSITION = "SaveBallPosition";
     public static string SAVE_FLOAT = "SaveFloat";
     public static string LOAD_FLOAT = "LoadFloat";
+
+    public static string TOTAL_SWINGS = "TotalSwings";
 }
