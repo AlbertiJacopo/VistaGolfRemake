@@ -6,13 +6,12 @@ using static UnityEngine.Rendering.Universal.UniversalRenderPipelineEditorResour
 
 public class FadeController : MonoBehaviour
 {
-    //[SerializeField] private float m_ReducingAlphaPercent;
-    //[SerializeField] private Material m_TransparentMaterial;
+    [SerializeField] private float m_ReducingAlphaPercent;
+    private Material m_TransparentMaterial;
     [SerializeField] string m_FadedMaterialName;
-    [SerializeField] string m_NormalMaterialName;
     private Transform m_Ball;
     private Transform m_Camera;
-    //private Material[] m_PreviousMaterials;
+    private Material m_PreviousMaterial;
     //private GameObject[] m_PreviousGameObjects;
 
     private void Start()
@@ -22,6 +21,10 @@ public class FadeController : MonoBehaviour
         m_Ball = ball.transform;
         m_Camera = mainCamera.transform;
         GameManager.instance.EventManager.Register(Constants.UPDATE_CAMERA_ROTATION, ChangeObstacleMaterial);
+        m_PreviousMaterial = GetComponent<MeshRenderer>().material;
+        m_TransparentMaterial = Resources.Load<Material>(m_FadedMaterialName);
+        if (m_PreviousMaterial == null)
+            Debug.Log("MATERIAL NULL");
     }
 
     //public void FadingMaterial(object[] param)
@@ -40,12 +43,12 @@ public class FadeController : MonoBehaviour
     //        {
     //            if (hits[i].collider.gameObject.transform.position != m_Ball.position)
     //            {
-    //                m_PreviousGameObjects[i] = hits[i].collider.gameObject;
-    //                m_PreviousMaterials[i] = hits[i].collider.gameObject.GetComponent<MeshRenderer>().material;
-    //                Color tmp = m_PreviousMaterials[i].color;
-    //                tmp.a = 1f - m_ReducingAlphaPercent;
-    //                m_TransparentMaterial.color = tmp;
-    //                hits[i].collider.gameObject.GetComponent<MeshRenderer>().material = m_TransparentMaterial;
+                    //m_PreviousGameObjects[i] = hits[i].collider.gameObject;
+                    //m_PreviousMaterials[i] = hits[i].collider.gameObject.GetComponent<MeshRenderer>().material;
+                    //Color tmp = m_PreviousMaterials[i].color;
+                    //tmp.a = 1f - m_ReducingAlphaPercent;
+                    //m_TransparentMaterial.color = tmp;
+                    //hits[i].collider.gameObject.GetComponent<MeshRenderer>().material = m_TransparentMaterial;
     //            }
     //        }
     //    }
@@ -64,11 +67,16 @@ public class FadeController : MonoBehaviour
         if (Vector3.Distance(m_Ball.position, transform.position) < Vector3.Distance(m_Ball.position, m_Camera.position)/2 && 
             Vector3.Distance(m_Camera.position, transform.position) < Vector3.Distance(m_Ball.position, m_Camera.position) / 2)
         {
-            Resources.Load<Material>("Material/" + m_FadedMaterialName);
+            Debug.Log("ENTERED TRANSPARENT");
+            Color tmp = m_PreviousMaterial.color;
+            tmp.a = m_ReducingAlphaPercent;
+            m_TransparentMaterial.color = tmp;
+            GetComponent<MeshRenderer>().material = m_TransparentMaterial;
         }
         else
         {
-            Resources.Load<Material>(m_NormalMaterialName);
+            Debug.Log("EXITED TRANSPARENT");
+            GetComponent<MeshRenderer>().material = GetComponent<MeshRenderer>().material = m_PreviousMaterial;
         }
     }
 }

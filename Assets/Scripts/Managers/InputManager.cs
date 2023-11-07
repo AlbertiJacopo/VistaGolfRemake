@@ -63,7 +63,7 @@ public class InputManager : MonoBehaviour
 
             Vector3 touchPosition = GetTouchWorldSpace(touch);
 
-            Debug.Log("touch: " + touchPosition);
+            //Debug.Log("touch: " + touchPosition);
 
             //taking the first touch
             if (touch.phase == TouchPhase.Began)
