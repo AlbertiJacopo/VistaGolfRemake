@@ -38,6 +38,8 @@ public class MovementComponent : MonoBehaviour
         m_currentDrag = m_RigidBody.drag;
         m_currentAngularDrag = m_RigidBody.angularDrag;
 
+        m_TimeMaxSpeed = (float)((direction.magnitude - 50) * 0.2);
+
         SettingUpDrags(0f, 0f);
 
         m_RigidBody.AddForce(-direction * m_MaxSpeed, ForceMode.Impulse);
