@@ -10,6 +10,10 @@ public class MovementComponent : MonoBehaviour
     [Header("Modificators")]
     [SerializeField] private float m_MaxSpeed;
     [SerializeField] private float m_ReducePercentage;
+    [SerializeField] private float m_TimeMaxSpeed;
+
+    private float m_currentDrag;
+    private float m_currentAngularDrag;
 
     private void Start()
     {
@@ -30,7 +34,30 @@ public class MovementComponent : MonoBehaviour
         Vector3 endPos = (Vector3)param[1];
 
         Vector3 direction = (endPos - startPos);
+
+        m_currentDrag = m_RigidBody.drag;
+        m_currentAngularDrag = m_RigidBody.angularDrag;
+
+        m_TimeMaxSpeed = (float)(direction.magnitude - 1);
+		if (m_TimeMaxSpeed < 0) m_TimeMaxSpeed = 0; 
+        SettingUpDrags(0f, 0f);
+
         m_RigidBody.AddForce(-direction * m_MaxSpeed, ForceMode.Impulse);
+
+        StartCoroutine(TimerMaxSpeed(m_TimeMaxSpeed));
+    }
+
+    private void SettingUpDrags(float drag, float angularDrag)
+    {
+        m_RigidBody.drag = drag;
+        m_RigidBody.angularDrag = angularDrag;
+    }
+
+    private IEnumerator TimerMaxSpeed(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        SettingUpDrags(m_currentDrag, m_currentAngularDrag);
     }
 
     public void Bounce(Vector3 normal)
