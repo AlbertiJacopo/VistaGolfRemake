@@ -1041,6 +1041,78 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &544619094
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2787826654942129989, guid: aa5f9689edfdcba4f85407a77f350570,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.5811448
+      objectReference: {fileID: 0}
+    - target: {fileID: 2787826654942129989, guid: aa5f9689edfdcba4f85407a77f350570,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.604
+      objectReference: {fileID: 0}
+    - target: {fileID: 2787826654942129989, guid: aa5f9689edfdcba4f85407a77f350570,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.561
+      objectReference: {fileID: 0}
+    - target: {fileID: 2787826654942129989, guid: aa5f9689edfdcba4f85407a77f350570,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2787826654942129989, guid: aa5f9689edfdcba4f85407a77f350570,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2787826654942129989, guid: aa5f9689edfdcba4f85407a77f350570,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2787826654942129989, guid: aa5f9689edfdcba4f85407a77f350570,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2787826654942129989, guid: aa5f9689edfdcba4f85407a77f350570,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2787826654942129989, guid: aa5f9689edfdcba4f85407a77f350570,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2787826654942129989, guid: aa5f9689edfdcba4f85407a77f350570,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7945975488784346241, guid: aa5f9689edfdcba4f85407a77f350570,
+        type: 3}
+      propertyPath: m_Name
+      value: C3D_Pyramid_01a
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7945975488784346241, guid: aa5f9689edfdcba4f85407a77f350570,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1269955660}
+  m_SourcePrefab: {fileID: 100100000, guid: aa5f9689edfdcba4f85407a77f350570, type: 3}
 --- !u!1 &554541975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,6 +1969,7 @@ MonoBehaviour:
   m_MainMenuScreen: {fileID: 0}
   m_OptionsScreen: {fileID: 0}
   m_PauseScreen: {fileID: 1133702570}
+  m_LevelSelectScreen: {fileID: 0}
 --- !u!1 &1133702566
 GameObject:
   m_ObjectHideFlags: 0
@@ -2411,6 +2484,26 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!1 &1269955659 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7945975488784346241, guid: aa5f9689edfdcba4f85407a77f350570,
+    type: 3}
+  m_PrefabInstance: {fileID: 544619094}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1269955660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269955659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 698192335f1a0294c95e65cf8f031c61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AnimationPauseTime: 2
+  m_AnimationName: Anim_Rotation_01a
 --- !u!4 &1378757884 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1068072089193294752, guid: 2b90163249c25ec419397eb943dd5955,
@@ -2589,6 +2682,7 @@ MonoBehaviour:
   m_DeadZoneSwingSprite: {fileID: 541422976}
   m_InputZoneBallRadius: 0.3
   m_InputZoneBallSprite: {fileID: 173432026}
+  m_MaxDistanceSwing: 0
 --- !u!4 &1512559468 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1504373989939449958, guid: fe89468b025d7ad499f108c990fb64b1,
@@ -4878,3 +4972,4 @@ SceneRoots:
   - {fileID: 1630441913}
   - {fileID: 2054675298}
   - {fileID: 508996554}
+  - {fileID: 544619094}
