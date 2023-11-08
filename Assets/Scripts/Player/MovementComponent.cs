@@ -16,9 +16,7 @@ public class MovementComponent : MonoBehaviour
     private void Start()
     {
         GameManager.instance.EventManager.Register(Constants.MOVEMENT_PLAYER, Movement);
-        GameManager.instance.EventManager.Register(Constants.TOGGLE_BALL, BallToggle);
         m_RigidBody = GetComponent<Rigidbody>();
-        StartCoroutine(WaitTimeBallAppear());
     }
     private void Update()
     {
@@ -63,19 +61,4 @@ public class MovementComponent : MonoBehaviour
             Bounce(other.GetContact(0).normal);
         }
     }
-
-    private IEnumerator WaitTimeBallAppear()
-    {
-        yield return new WaitForSeconds(m_BallAppearTimer);
-        BallToggle(null);
-    }
-
-    public void BallToggle(object[] param)
-    {
-        if (gameObject.activeSelf)
-            gameObject.SetActive(false);
-        else if (!gameObject.activeSelf)
-            gameObject.SetActive(true);
-    }
-
 }
