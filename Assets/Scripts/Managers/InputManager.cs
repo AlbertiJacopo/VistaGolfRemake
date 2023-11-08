@@ -210,7 +210,7 @@ public class InputManager : MonoBehaviour
     {
         Vector3 finalPoint = Vector3.zero;
         float actualLenght = 0;
-        Vector3 directionBall = -(m_TouchEndPosition - m_TouchStartPosition);
+        Vector3 directionBall = -(m_TouchEndPosition - m_TouchTempPosition);
         RaycastHit hit;
 
         m_RenderDistanceLenght = directionBall.magnitude * m_LineMultiplier;
