@@ -7,7 +7,7 @@ public class FadeController : MonoBehaviour
 {
     [SerializeField] private float m_ReducingAlphaPercent;
     [SerializeField] string m_FadedMaterialName;
-    [SerializeField, Range(0.9f, 1)] private float m_MinValue;
+    [SerializeField, Range(0f, 1f)] private float m_MinValue;
     private Material m_TransparentMaterial;
     private Transform m_Ball;
     private Transform m_Camera;
