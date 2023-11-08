@@ -26,6 +26,8 @@ public class UndoController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        GameManager.instance.EventManager.TriggerEvent(Constants.PLAY_SOUND, Constants.SFX_BALLOUT);
+
         other.gameObject.GetComponent<Rigidbody>().Sleep();
         other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         Undo(other.gameObject);

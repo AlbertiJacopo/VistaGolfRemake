@@ -138,4 +138,14 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
+
+    public void PlayButtonDownSound()
+    {
+        GameManager.instance.EventManager.TriggerEvent(Constants.PLAY_SOUND, Constants.SFX_PRESS);
+    }
+
+    public void PlayButtonUpSound() 
+    {
+        GameManager.instance.EventManager.TriggerEvent(Constants.PLAY_SOUND, Constants.SFX_LIFT);
+    }
 }

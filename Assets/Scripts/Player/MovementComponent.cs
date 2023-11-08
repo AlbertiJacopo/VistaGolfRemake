@@ -15,6 +15,8 @@ public class MovementComponent : MonoBehaviour
     private float m_currentDrag;
     private float m_currentAngularDrag;
 
+    [SerializeField] private float m_BallAppearTimer;
+
     private void Start()
     {
         GameManager.instance.EventManager.Register(Constants.MOVEMENT_PLAYER, Movement);
@@ -29,6 +31,7 @@ public class MovementComponent : MonoBehaviour
     public void Movement(object[] param)
     {
         GameManager.instance.EventManager.TriggerEvent(Constants.SAVE_BALL_POSITION, gameObject.transform.position);
+        GameManager.instance.EventManager.TriggerEvent(Constants.PLAY_SOUND, Constants.SFX_HITBALL);
 
         Vector3 startPos = (Vector3)param[0];
         Vector3 endPos = (Vector3)param[1];
@@ -62,6 +65,7 @@ public class MovementComponent : MonoBehaviour
 
     public void Bounce(Vector3 normal)
     {
+        GameManager.instance.EventManager.TriggerEvent(Constants.PLAY_SOUND, Constants.SFX_HITWALL);
         float speed = m_LastVelocity.magnitude;
         Vector3 direction = Vector3.Reflect(m_LastVelocity.normalized, normal);
 
