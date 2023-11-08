@@ -11,7 +11,7 @@ public class FlagAnimationController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_Animator = GetComponent<Animator>();
+        m_Animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
