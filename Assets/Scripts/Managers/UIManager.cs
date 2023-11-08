@@ -8,7 +8,8 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI m_Score;
     [SerializeField] private TextMeshProUGUI m_UISwings;
-
+    [SerializeField] private TextMeshProUGUI m_UITotalSwings;
+    [SerializeField] private TextMeshProUGUI m_UILevelCount;
     private float m_TotalSwingsCount;
     private float m_LevelSwingsCount;
 
@@ -19,8 +20,11 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        GameManager.instance.EventManager.TriggerEvent(Constants.LOAD_FLOAT, Constants.TOTAL_SWINGS);
         GameManager.instance.EventManager.Register(Constants.UPDATE_LEVEL_SWINGS, UpdateLevelSwingsCount);
         //GameManager.instance.EventManager.Register(Constants.UPDATE_TOTAL_SWINGS, UpdateTotalSwings);
+        Scene actualScene = SceneManager.GetActiveScene();
+        m_UILevelCount.text = (actualScene.buildIndex).ToString();
     }
 
     /// <summary>
@@ -29,7 +33,8 @@ public class UIManager : MonoBehaviour
     /// <param name="param"></param>
     public void UpdateTotalSwings()
     {
-        m_TotalSwingsCount += m_LevelSwingsCount;
+        GameManager.instance.EventManager.TriggerEvent(Constants.SAVE_FLOAT, Constants.TOTAL_SWINGS, m_TotalSwingsCount);
+        m_UITotalSwings.text = m_TotalSwingsCount.ToString();
     }
 
     /// <summary>
@@ -39,7 +44,7 @@ public class UIManager : MonoBehaviour
     {
         m_TotalSwingsCount -= m_LevelSwingsCount;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
-        
+        UpdateTotalSwings();
     }
 
     /// <summary>
@@ -49,8 +54,9 @@ public class UIManager : MonoBehaviour
     public void UpdateLevelSwingsCount(object[] param)
     {
         m_LevelSwingsCount++;
+        m_TotalSwingsCount++;
         UpdateTotalSwings();
-        m_UISwings.text = "Swings: " + m_LevelSwingsCount.ToString();
+        m_UISwings.text = m_LevelSwingsCount.ToString();
     }
 
     /// <summary>
