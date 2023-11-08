@@ -5,13 +5,12 @@ using UnityEngine;
 public class FlagAnimationController : MonoBehaviour
 {
     [SerializeField] private float m_DistanceFromBall;
-    private Transform m_Ball;
+    [SerializeField] private Transform m_Ball;
     private Animator m_Animator;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_Ball = GameObject.FindGameObjectWithTag("Player").transform;
         m_Animator = GetComponent<Animator>();
     }
 
