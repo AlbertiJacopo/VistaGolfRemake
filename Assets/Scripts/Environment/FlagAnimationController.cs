@@ -4,23 +4,28 @@ using UnityEngine;
 
 public class FlagAnimationController : MonoBehaviour
 {
+    [SerializeField] private float m_DistanceFromBall;
+    private Transform m_Ball;
     private Animator m_Animator;
 
     // Start is called before the first frame update
     void Start()
     {
+        m_Ball = GameObject.FindGameObjectWithTag("Player").transform;
         m_Animator = GetComponent<Animator>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if (other.CompareTag("Player"))
-            m_Animator.SetBool("IsRising", true);
+        ChechIfNearBall();
     }
 
-    private void OnTriggerExit(Collider other)
+    private void ChechIfNearBall()
     {
-        if (other.CompareTag("Player"))
+        if (Vector3.Distance(transform.position, m_Ball.position) < m_DistanceFromBall)
             m_Animator.SetBool("IsRising", true);
+
+        else
+            m_Animator.SetBool("IsRising", false);
     }
 }
