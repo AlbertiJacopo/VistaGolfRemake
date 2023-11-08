@@ -228,13 +228,13 @@ public class InputManager : MonoBehaviour
                 directionWall = Vector3.Reflect(directionWall.normalized, normal);
                 normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
 
-                Debug.Log("totale: " + (actualLenght + Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1])));
+                //Debug.Log("totale: " + (actualLenght + Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1])));
 
                 if (actualLenght + Vector3.Distance(wallHitPosition[i], wallHitPosition[i + 1]) >= m_RenderDistanceLenght)
                 {
                     wallHitPosition.RemoveAt(i + 1);
                     finalPoint = CalcFInalPoint(actualLenght, pastDirectionWall, wallHitPosition[i]);
-                    Debug.Log("totale if: " + actualLenght);
+                    //Debug.Log("totale if: " + actualLenght);
                 }
                 else 
                 {

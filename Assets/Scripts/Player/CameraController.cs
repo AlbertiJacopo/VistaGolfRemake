@@ -56,7 +56,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(m_Camera.orthographicSize);
+        //Debug.Log(m_Camera.orthographicSize);
         if (m_CanZoom)
         {
             Zooming();
