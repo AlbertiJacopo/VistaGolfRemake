@@ -16,8 +16,12 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        SetSliderSettings(MusicSlider, "MusicVolume");
-        SetSliderSettings(EffectsSlider, "EffectsVolume");
+		if(MusicSlider != null && EffectsSlider != null)
+		{
+			SetSliderSettings(MusicSlider, "MusicVolume");
+			SetSliderSettings(EffectsSlider, "EffectsVolume");
+
+		}
 
         m_AudioSource = GetComponent<AudioSource>();
 

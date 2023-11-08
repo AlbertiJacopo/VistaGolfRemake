@@ -23,8 +23,11 @@ public class UIManager : MonoBehaviour
         GameManager.instance.EventManager.TriggerEvent(Constants.LOAD_FLOAT, Constants.TOTAL_SWINGS);
         GameManager.instance.EventManager.Register(Constants.UPDATE_LEVEL_SWINGS, UpdateLevelSwingsCount);
         //GameManager.instance.EventManager.Register(Constants.UPDATE_TOTAL_SWINGS, UpdateTotalSwings);
-        Scene actualScene = SceneManager.GetActiveScene();
-        m_UILevelCount.text = (actualScene.buildIndex).ToString();
+        if(m_UILevelCount != null)
+		{
+			Scene actualScene = SceneManager.GetActiveScene();
+		    m_UILevelCount.text = (actualScene.buildIndex).ToString();
+		}
     }
 
     /// <summary>
@@ -74,8 +77,16 @@ public class UIManager : MonoBehaviour
     {
         ToggleUIScreen(m_MainMenuScreen, m_OptionsScreen);
     }
-    
-    public void GoBackFromLevelSelect()
+
+	/// <summary>
+	/// go to option menu from main menu
+	/// </summary>
+	public void GoToOption()
+	{
+		ToggleUIScreen(m_OptionsScreen, m_MainMenuScreen);
+	}
+
+	public void GoBackFromLevelSelect()
     {
         ToggleUIScreen(m_MainMenuScreen, m_LevelSelectScreen);
     }
