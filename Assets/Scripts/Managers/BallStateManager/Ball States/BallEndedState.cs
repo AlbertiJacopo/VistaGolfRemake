@@ -11,7 +11,7 @@ public class BallEndedState : State<BallStates>
         m_BallStatesManager = (BallStatesManager)stateMachine;
     }
 
-    public void OnUpdate(Touch touch)
+    public override void OnUpdate()
     {
         base.OnUpdate();
 

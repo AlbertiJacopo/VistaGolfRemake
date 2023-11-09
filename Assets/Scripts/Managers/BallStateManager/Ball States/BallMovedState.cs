@@ -11,20 +11,20 @@ public class BallMovedState : State<BallStates>
         m_BallStatesManager = (BallStatesManager)stateMachine;
     }
 
-    public void OnUpdate(Touch touch)
+    public override void OnUpdate()
     {
         base.OnUpdate();
-        if (Vector3.Distance(m_BallStatesManager.m_TouchStartPosition, m_BallStatesManager.GetTouchWorldSpace(touch)) > m_BallStatesManager.m_DeadZoneSwingRadius)
+        if (Vector3.Distance(m_BallStatesManager.m_TouchStartPosition, m_BallStatesManager.GetTouchWorldSpace()) > m_BallStatesManager.m_DeadZoneSwingRadius)
         {
-            Vector3 direction = m_BallStatesManager.GetTouchWorldSpace(touch) - m_BallStatesManager.m_TouchStartPosition;
+            Vector3 direction = m_BallStatesManager.GetTouchWorldSpace() - m_BallStatesManager.m_TouchStartPosition;
             m_BallStatesManager.m_TouchTempPosition = m_BallStatesManager.m_TouchStartPosition + (m_BallStatesManager.m_DeadZoneSwingRadius * direction.normalized);
             m_BallStatesManager.m_InputDirectionRenderer.SetPosition(0, m_BallStatesManager.m_Ball.position);
 
-            if (Vector3.Distance(m_BallStatesManager.m_TouchStartPosition, m_BallStatesManager.GetTouchWorldSpace(touch)) <= m_BallStatesManager.m_MaxDistanceSwing)
-                m_BallStatesManager.m_TouchEndPosition = m_BallStatesManager.GetTouchWorldSpace(touch);
+            if (Vector3.Distance(m_BallStatesManager.m_TouchStartPosition, m_BallStatesManager.GetTouchWorldSpace()) <= m_BallStatesManager.m_MaxDistanceSwing)
+                m_BallStatesManager.m_TouchEndPosition = m_BallStatesManager.GetTouchWorldSpace();
             else
             {
-                Vector3 dir = m_BallStatesManager.GetTouchWorldSpace(touch) - m_BallStatesManager.m_TouchStartPosition;
+                Vector3 dir = m_BallStatesManager.GetTouchWorldSpace() - m_BallStatesManager.m_TouchStartPosition;
                 m_BallStatesManager.m_TouchEndPosition = m_BallStatesManager.m_TouchStartPosition + (m_BallStatesManager.m_MaxDistanceSwing * dir.normalized);
             }
 
@@ -45,14 +45,13 @@ public class BallMovedState : State<BallStates>
         Vector3 finalPoint = Vector3.zero;
         float actualLenght = 0;
         Vector3 directionBall = -(m_BallStatesManager.m_TouchEndPosition - m_BallStatesManager.m_TouchTempPosition);
-        RaycastHit hit;
 
         m_BallStatesManager.m_RenderDistanceLenght = directionBall.magnitude * m_BallStatesManager.m_LineMultiplier;
 
-        List<Vector3> wallHitPosition = new List<Vector3>();
+        List<Vector3> wallHitPosition = new();
         Vector3 normal;
 
-        Physics.Raycast(m_BallStatesManager.m_Ball.position, directionBall.normalized, out hit);
+        Physics.Raycast(m_BallStatesManager.m_Ball.position, directionBall.normalized, out RaycastHit hit);
 
         wallHitPosition.Add(hit.point);
 

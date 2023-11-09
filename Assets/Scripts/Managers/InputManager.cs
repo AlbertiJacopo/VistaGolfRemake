@@ -35,6 +35,8 @@ public class InputManager : MonoBehaviour
 
         m_BallStateManager = new BallStatesManager(m_Ball, m_DeadZoneSwingRadius, m_DeadZoneSwingSprite, m_InputZoneBallRadius, m_InputZoneBallSprite, m_MaxDistanceSwing,
                                                    m_MovePassed, m_LineMultiplier, m_InputDirectionRenderer, m_CalculatedDirection);
+
+        m_BallStateManager.CurrentState = m_BallStateManager.StatesList[BallStates.Idle];
     }
 
 
@@ -50,46 +52,36 @@ public class InputManager : MonoBehaviour
         else
             m_InputZoneBallSprite.SetActive(false);
 
-        //hiding touch deadzone if there're no touchs
-        if (Input.touchCount == 0)
-        {
-            m_DeadZoneSwingSprite.SetActive(false);
-            EnableDisableRenderers(false);
-            return;
-        }
+        bool isTouching = SetState();
 
-        //Gets the start position and triggers player or camera movement
-        if (Input.touchCount == 1)
-        {
-            Touch touch = Input.GetTouch(0);
+        m_BallStateManager.CurrentState.OnUpdate();
 
-            //Debug.Log("touch: " + touchPosition);
-
-            //taking the first touch
-            if (touch.phase == TouchPhase.Began)
-            {
-                Vector3 touchPosition = m_BallStateManager.GetTouchWorldSpace(touch);
-                m_BallStateManager.m_TouchStartPosition = touchPosition;
-                m_BallStateManager.m_InputDirectionRenderer.SetPosition(0, m_Ball.position);
-            }
-
-            bool isInInputZone = CheckInInputZoneBall();
-
-            //showing deadzone when touch
-            if (isInInputZone && touch.phase == TouchPhase.Began && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
-                ShowHideSprite(m_DeadZoneSwingSprite, m_BallStateManager.m_TouchStartPosition, true);
-
-            SetState(touch);
-
-            m_BallStateManager.CurrentState.OnUpdate(touch);
-        }
+        if (isTouching && CheckInInputZoneBall() && Input.GetTouch(0).phase == TouchPhase.Began && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
+            ShowHideSprite(m_DeadZoneSwingSprite, m_BallStateManager.m_TouchStartPosition, true);
     }
 
-    private void SetState(Touch touch)
+    private bool SetState()
     {
-        if (touch.phase == TouchPhase.Began) m_BallStateManager.ChangeState(BallStates.Began);
-        if (touch.phase == TouchPhase.Moved) m_BallStateManager.ChangeState(BallStates.Moved);
-        if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) m_BallStateManager.ChangeState(BallStates.Ended);
+        if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            m_BallStateManager.ChangeState(BallStates.Began);
+            return true;
+        }
+        else if (Input.touchCount == 1 && CheckInInputZoneBall() && Input.GetTouch(0).phase == TouchPhase.Moved)
+        {
+            m_BallStateManager.ChangeState(BallStates.Moved);
+            return true;
+        }
+        else if (Input.touchCount == 1 && CheckInInputZoneBall() && (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled))
+        {
+            m_BallStateManager.ChangeState(BallStates.Ended);
+            return true;
+        }
+        else
+        {
+            m_BallStateManager.ChangeState(BallStates.Idle);
+            return false;
+        }
     }
 
 
@@ -117,11 +109,5 @@ public class InputManager : MonoBehaviour
             return true;
         else
             return false;
-    }
-
-    private void EnableDisableRenderers(bool value)
-    {
-        m_InputDirectionRenderer.gameObject.SetActive(value);
-        m_CalculatedDirection.gameObject.SetActive(value);
     }
 }

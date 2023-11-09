@@ -11,10 +11,10 @@ public class BallBeganState : State<BallStates>
         m_BallStatesManager = (BallStatesManager)stateMachine;
     }
 
-    public void OnUpdate(Touch touch)
+    public override void OnUpdate()
     {
         base.OnUpdate();
-        Vector3 touchPosition = m_BallStatesManager.GetTouchWorldSpace(touch);
+        Vector3 touchPosition = m_BallStatesManager.GetTouchWorldSpace();
         m_BallStatesManager.m_TouchStartPosition = touchPosition;
         m_BallStatesManager.m_InputDirectionRenderer.SetPosition(0, m_BallStatesManager.m_Ball.position);
     }

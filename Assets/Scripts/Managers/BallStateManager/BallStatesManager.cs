@@ -26,16 +26,11 @@ public class BallStatesManager : StatesMachine<BallStates>
     public LineRenderer m_CalculatedDirection;
     public float m_RenderDistanceLenght;
 
-    public BallStatesManager(Vector3 touchTempPosition, Vector3 touchStartPosition, Vector3 touchEndPosition, 
-                            Transform ball, 
-                            float deadZoneSwingRadius, GameObject deadZoneSwingSprite, float inputZoneBallRadius, GameObject inputZoneBallSprite, float maxDistanceSwing, 
+    public BallStatesManager(Transform ball, float deadZoneSwingRadius, GameObject deadZoneSwingSprite, 
+                            float inputZoneBallRadius, GameObject inputZoneBallSprite, float maxDistanceSwing, 
                             bool movePassed, 
-                            float lineMultiplier, LineRenderer inputDirectionRenderer, LineRenderer calculatedDirection, float renderDistanceLenght) : base()
+                            float lineMultiplier, LineRenderer inputDirectionRenderer, LineRenderer calculatedDirection) : base()
     {
-        m_TouchTempPosition = touchTempPosition;
-        m_TouchStartPosition = touchStartPosition;
-        m_TouchEndPosition = touchEndPosition;
-
         m_Ball = ball;
 
         m_DeadZoneSwingRadius = deadZoneSwingRadius;
@@ -49,23 +44,22 @@ public class BallStatesManager : StatesMachine<BallStates>
         m_LineMultiplier = lineMultiplier;
         m_InputDirectionRenderer = inputDirectionRenderer;
         m_CalculatedDirection = calculatedDirection;
-        m_RenderDistanceLenght = renderDistanceLenght;
     }
 
     protected override void InitStates()
     {
+        StatesList.Add(BallStates.Idle, new BallIdleState(BallStates.Idle, this));
         StatesList.Add(BallStates.Began, new BallBeganState(BallStates.Began, this));
-        StatesList.Add(BallStates.Moved, new BallBeganState(BallStates.Moved, this));
-        StatesList.Add(BallStates.Ended, new BallBeganState(BallStates.Ended, this));
+        StatesList.Add(BallStates.Moved, new BallMovedState(BallStates.Moved, this));
+        StatesList.Add(BallStates.Ended, new BallEndedState(BallStates.Ended, this));
     }
 
-    public Vector3 GetTouchWorldSpace(Touch touch)
+    public Vector3 GetTouchWorldSpace()
     {
         Vector3 touchPosition = Vector3.zero;
         Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-        Plane plane = new Plane(Vector3.up, m_Ball.position);
-        float distance = 0; 
-        if (plane.Raycast(ray, out distance))
+        Plane plane = new(Vector3.up, m_Ball.position);
+        if (plane.Raycast(ray, out float distance))
         {
             touchPosition = ray.GetPoint(distance); 
         }
