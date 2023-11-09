@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1592932651}
-  m_IndirectSpecularColor: {r: 0.18380105, g: 0.22841874, b: 0.30007875, a: 1}
+  m_IndirectSpecularColor: {r: 0.18380138, g: 0.22841907, b: 0.30007917, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1718,8 +1718,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7249caac7840b4998b64d2ca34cb58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_AudioMixer: {fileID: 0}
   MusicSlider: {fileID: 0}
-  m_GameVolume: 0
+  EffectsSlider: {fileID: 0}
+  m_AudioKeys: []
+  m_AudioValues: []
 --- !u!1001 &673690888
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2896,9 +2899,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Score: {fileID: 0}
   m_UISwings: {fileID: 1730251642}
+  m_UITotalSwings: {fileID: 0}
+  m_UILevelCount: {fileID: 0}
   m_MainMenuScreen: {fileID: 0}
   m_OptionsScreen: {fileID: 0}
   m_PauseScreen: {fileID: 1133702570}
+  m_LevelSelectScreen: {fileID: 0}
 --- !u!1 &1133702566
 GameObject:
   m_ObjectHideFlags: 0
@@ -3065,7 +3071,7 @@ Transform:
   m_GameObject: {fileID: 1144998058}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

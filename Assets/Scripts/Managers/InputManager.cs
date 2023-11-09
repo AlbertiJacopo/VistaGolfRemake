@@ -56,7 +56,8 @@ public class InputManager : MonoBehaviour
 
         m_BallStateManager.CurrentState.OnUpdate();
 
-        if (isTouching && CheckInInputZoneBall() && Input.GetTouch(0).phase == TouchPhase.Began && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
+        if (isTouching && CheckInInputZoneBall() && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved)
+            && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
             ShowHideSprite(m_DeadZoneSwingSprite, m_BallStateManager.m_TouchStartPosition, true);
     }
 
