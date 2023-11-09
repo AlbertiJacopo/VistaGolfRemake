@@ -13,13 +13,14 @@ public class ObstacleController : MonoBehaviour
     {
         m_Anim = gameObject.GetComponent<Animator>();
     }
-
+    
     // Update is called once per frame
     void Update()
     {
         StartCoroutine(AnimationCycle());
     }
-
+    
+    //Plays the animation and wait for a determinated time
     private IEnumerator AnimationCycle()
     {
         m_Anim.Play(m_AnimationName);

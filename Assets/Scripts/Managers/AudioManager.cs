@@ -28,6 +28,9 @@ public class AudioManager : MonoBehaviour
         GameManager.instance.EventManager.Register(Constants.PLAY_SOUND, PlaySound);
     }
 
+    /// <summary>
+    /// Search for the audiosource corrisponding on the audiokey parameter
+    /// </summary>
     public void PlaySound(object[] param)
     {
         int index = -1;

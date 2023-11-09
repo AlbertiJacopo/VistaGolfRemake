@@ -17,8 +17,11 @@ public class FlagAnimationController : MonoBehaviour
     private void Update()
     {
         ChechIfNearBall();
-    }
-
+    } 
+    
+    /// <summary>
+    /// Checks if the object is near enough from the ball and starts the animation depending on that
+    /// <summary>
     private void ChechIfNearBall()
     {
         if (Vector3.Distance(transform.position, m_Ball.position) < m_DistanceFromBall)

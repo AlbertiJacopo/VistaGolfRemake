@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
     {
         GameManager.instance.EventManager.TriggerEvent(Constants.LOAD_FLOAT, Constants.TOTAL_SWINGS);
         GameManager.instance.EventManager.Register(Constants.UPDATE_LEVEL_SWINGS, UpdateLevelSwingsCount);
-        //GameManager.instance.EventManager.Register(Constants.UPDATE_TOTAL_SWINGS, UpdateTotalSwings);
+        //check if it exist a UILevelCount, and if does it sets its text to the current level number
         if(m_UILevelCount != null)
 		{
 			Scene actualScene = SceneManager.GetActiveScene();
@@ -144,7 +144,9 @@ public class UIManager : MonoBehaviour
             return;
         }
     }
-
+    /// <summary>
+    /// loads the scene with that name
+    /// </summary>
     public void LoadSceneNumber(string sceneName)
     {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);

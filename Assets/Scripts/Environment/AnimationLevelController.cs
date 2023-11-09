@@ -15,14 +15,19 @@ public class AnimationLevelController : MonoBehaviour
         GameManager.instance.EventManager.Register(Constants.TOGGLE_BALL, BallToggle);
         StartCoroutine(WaitTimeBallAppear());
     }
-
+    /// <summary>
+    /// Plays the animation by setting its bool to true, then starts WaitForEndAnim
+    /// </summary>
     public void PlaySinkAnimaton(object[] param)
     {
         m_Level.SetBool("EndLevel", true);
 
         StartCoroutine(WaitForEndAnim());
     }
-
+    
+    /// <summary>
+    /// Wait for the end of the animation then loads next level
+    /// </summary>
     private IEnumerator WaitForEndAnim()
     {
         yield return new WaitForSeconds(m_Level.GetCurrentAnimatorStateInfo(0).length);
@@ -34,7 +39,10 @@ public class AnimationLevelController : MonoBehaviour
         yield return new WaitForSeconds(m_Level.GetCurrentAnimatorStateInfo(0).length);
         BallToggle(null);
     }
-
+     
+    /// <summary>
+    /// Set ball gameobject active or not depending on which state the gameobject is
+    /// <summary>
     public void BallToggle(object[] param)
     {
         if (m_Ball.activeSelf)

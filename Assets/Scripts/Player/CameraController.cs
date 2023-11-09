@@ -41,7 +41,7 @@ public class CameraController : MonoBehaviour
         GameManager.instance.EventManager.Register(Constants.UPDATE_CAMERA_ROTATION, UpdateRotation);
         GameManager.instance.EventManager.Register(Constants.UPDATE_CAMERA_ZOOMING, UpdateZooming);
         GameManager.instance.EventManager.Register(Constants.STOP_CAMERA_ZOOMING, StopZooming);
-        GameManager.instance.EventManager.Register(Constants.START_CAMERA_TRACKING, StartTracking);
+        GameManager.instance.EventManager.Register(Constants.START_CAMERA_TRACKING, CameraTracking);
         GameManager.instance.EventManager.Register(Constants.STOP_CAMERA_TRACKING, StopTracking);
         m_Camera = GetComponentInChildren<Camera>();
         CheckZoomingDistance();
@@ -79,7 +79,10 @@ public class CameraController : MonoBehaviour
     }
 
     #region Rotation
-
+ 
+    /// <summary>
+    /// update the rotation of the camera
+    /// <summary>
     public void UpdateRotation(object[] param)
     {
         Vector2 delta = (Vector2)param[0];
@@ -93,13 +96,19 @@ public class CameraController : MonoBehaviour
 
     #region Tracking
 
+    /// <summary>
+    /// Stops the tracking of the camera
+    /// <summary>
     public void StopTracking(object[] param)
     {
         if (!m_CanTrack)
             m_CanTrack = true;
     }
 
-    public void StartTracking(object[] param)
+    /// <summary>
+    /// Tracks the camera
+    /// <summary>
+    public void CameraTracking(object[] param)
     {
         if (m_CanTrack)
             m_CanTrack = false;
@@ -108,14 +117,13 @@ public class CameraController : MonoBehaviour
         transform.position = m_BallPosition;
     }
 
-    private void CameraTrack()
-    {
-
-    }
-
     #endregion
 
     #region Zooming
+    
+    /// <summary>
+    /// Updates the parameters used by the zooming
+    /// <summary>
     public void UpdateZooming(object[] param)
     {
         if (!m_CanZoom)
@@ -127,12 +135,18 @@ public class CameraController : MonoBehaviour
         m_CurrentPos2 = (Vector2)param[3];
     }
 
+    /// <summary>
+    /// Stops the zooming
+    /// <summary>
     public void StopZooming(object[] param)
     {
         CheckZoomingDistance(); 
         m_CanZoom = false;
     }
 
+    /// <summary>
+    /// Effective zoom
+    /// <summary>
     private void Zooming()
     {
         float startDistance = Vector2.Distance(m_StartPos, m_StartPos2);
@@ -143,6 +157,9 @@ public class CameraController : MonoBehaviour
         CheckZoomingDistance();
     }
 
+    /// <summary>
+    /// Chech if the zoom is in range and if it's not sets the zooming at a max or min (depending on the case)
+    /// <summary>
     private void CheckZoomingDistance()
     {
         if (m_Camera.orthographicSize < m_MinDistance)

@@ -22,7 +22,10 @@ public class AnimLevelController : MonoBehaviour
 
 		StartCoroutine(WaitForEndAnim());
 	}
-
+        
+        /// <summary>
+    	/// Wait for the end of the animation then loads next level
+    	/// </summary>
 	private IEnumerator WaitForEndAnim()
 	{
 		yield return new WaitForSeconds(m_Level.GetCurrentAnimatorStateInfo(0).length);
@@ -35,6 +38,9 @@ public class AnimLevelController : MonoBehaviour
 		BallToggle(null);
 	}
 
+	/// <summary>
+    	/// Set ball gameobject active or not depending on which state the gameobject is
+    	/// <summary>
 	public void BallToggle(object[] param)
 	{
 		if (m_Ball.activeSelf)
