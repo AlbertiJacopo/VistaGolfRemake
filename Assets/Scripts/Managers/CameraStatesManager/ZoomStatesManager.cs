@@ -15,11 +15,11 @@ public class ZoomStatesManager : StatesMachine<ZoomState>
     }
 
     protected override void InitStates()
-        {
-            StatesList.Add(ZoomState.TouchBegan, new ZoomTouchBegan(ZoomState.TouchBegan, this));
-            StatesList.Add(ZoomState.TouchMoved, new ZoomTouchMoved(ZoomState.TouchMoved, this));
-            StatesList.Add(ZoomState.TouchEnded, new ZoomTouchEnded(ZoomState.TouchEnded, this));
-        }
+    {
+        StatesList.Add(ZoomState.TouchBegan, new ZoomTouchBegan(ZoomState.TouchBegan, this));
+        StatesList.Add(ZoomState.TouchMoved, new ZoomTouchMoved(ZoomState.TouchMoved, this));
+        StatesList.Add(ZoomState.TouchEnded, new ZoomTouchEnded(ZoomState.TouchEnded, this));
+    }
 }
 
 

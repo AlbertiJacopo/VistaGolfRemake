@@ -17,12 +17,12 @@ public class CameraRotationState : State<CameraState>
     {
         base.OnEnter();
         if (m_RotationStatesManager == null)
-        m_RotationStatesManager = new RotationStatesManager();
+            m_RotationStatesManager = new RotationStatesManager();
     }
 
     public override void OnUpdate()
     {
-        
+        m_RotationStatesManager.CurrentState.OnUpdate();
     }
 
     public override void OnExit()

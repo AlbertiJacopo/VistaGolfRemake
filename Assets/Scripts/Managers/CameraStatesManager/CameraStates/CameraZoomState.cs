@@ -6,7 +6,7 @@ using UnityEngine;
 public class CameraZoomState : State<CameraState>
 {
     private CameraStatesManager m_CameraStatesManager;
-    private ZoomStatesManager m_RotationStatesManager;
+    private ZoomStatesManager m_ZoomStatesManager;
 
     public CameraZoomState(CameraState stateID, StatesMachine<CameraState> stateManager = null) : base(stateID, stateManager)
     {
@@ -16,13 +16,13 @@ public class CameraZoomState : State<CameraState>
     public override void OnEnter()
     {
         base.OnEnter();
-        if (m_RotationStatesManager == null)
-            m_RotationStatesManager = new ZoomStatesManager(m_CameraStatesManager.TouchScreenStartPos, m_CameraStatesManager.TouchScreenStartPos2);
+        if (m_ZoomStatesManager == null)
+            m_ZoomStatesManager = new ZoomStatesManager(m_CameraStatesManager.TouchScreenStartPos, m_CameraStatesManager.TouchScreenStartPos2);
     }
 
     public override void OnUpdate()
     {
-
+        m_ZoomStatesManager.CurrentState.OnUpdate();
     }
 
     public override void OnExit()
