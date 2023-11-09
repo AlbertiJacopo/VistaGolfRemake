@@ -1,0 +1,14 @@
+{
+    "friendlyName": "OnePlus 8",
+    "version": 1,
+    "screens": [
+        {
+            "width": 1080,
+            "height": 2400,
+            "dpi": 450.0
+        }
+    ],
+    "systemInfo": {
+        "operatingSystem": "Android"
+    }
+}
