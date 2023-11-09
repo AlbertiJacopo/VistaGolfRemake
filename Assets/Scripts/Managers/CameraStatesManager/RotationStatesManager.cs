@@ -6,10 +6,10 @@ using UnityEngine.Playables;
 
 public class RotationStatesManager : StatesMachine<RotationState>
 {
-
-    public RotationStatesManager()
+    public InputManager InputManager;
+    public RotationStatesManager(InputManager inputManager)
     {
-        
+        InputManager = inputManager;
     }
 
     protected override void InitStates()

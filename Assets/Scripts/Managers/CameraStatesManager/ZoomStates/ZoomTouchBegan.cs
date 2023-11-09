@@ -22,9 +22,9 @@ public class ZoomTouchBegan : State<ZoomState>
     {
         base.OnUpdate();
         //DA SETTARE IL TOUCH
-        m_ZoomStatesManager.TouchScreenStartPos = touch.position;
+        m_ZoomStatesManager.TouchScreenStartPos = m_ZoomStatesManager.InputManager.GetTouch(0).position;
         //DA SETTARE IL TOUCH
-        m_ZoomStatesManager.TouchScreenStartPos2 = touch.position;
+        m_ZoomStatesManager.TouchScreenStartPos2 = m_ZoomStatesManager.InputManager.GetTouch(0).position;
     }
     public override void OnExit()
     {

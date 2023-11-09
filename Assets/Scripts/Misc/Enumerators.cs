@@ -8,6 +8,7 @@ public enum BallStates
     Began,
     Moved,
     Ended
+}
 
 public enum RotationState
 {

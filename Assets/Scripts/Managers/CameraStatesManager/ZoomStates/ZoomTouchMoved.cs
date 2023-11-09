@@ -22,7 +22,9 @@ public class ZoomTouchMoved : State<ZoomState>
     {
         base.OnUpdate();
         //DA SETTARE IL TOUCH
-        GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ZOOMING, m_ZoomStatesManager.TouchScreenStartPos, m_ZoomStatesManager.TouchScreenStartPos2, touch.position, touch2.position);
+        GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ZOOMING, m_ZoomStatesManager.TouchScreenStartPos, m_ZoomStatesManager.TouchScreenStartPos2, 
+                                                        m_ZoomStatesManager.InputManager.GetTouch(0).position,
+                                                        m_ZoomStatesManager.InputManager.GetTouch(1).position);
     }
     public override void OnExit()
     {

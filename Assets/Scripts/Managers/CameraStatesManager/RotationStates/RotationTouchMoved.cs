@@ -22,7 +22,7 @@ public class RotationTouchMoved : State<RotationState>
     {
         base.OnUpdate();
         //DA SETTARE IL TOUCH
-        GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ROTATION, touch.deltaPosition);
+        GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_CAMERA_ROTATION, m_RotationStatesManager.InputManager.GetTouch(0).deltaPosition);
         
     }
     public override void OnExit()

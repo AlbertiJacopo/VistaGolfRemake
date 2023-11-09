@@ -9,16 +9,17 @@ public class CameraStatesManager : StatesMachine<CameraState>
     public Vector2 TouchScreenStartPos;
     public Vector2 TouchScreenStartPos2;
 
-    public CameraStatesManager(Vector2 touchScreenStartPos, Vector2 touchScreenStartPos2)
+    private InputManager m_InputManager;
+
+    public CameraStatesManager(InputManager inputManager)
     {
-        TouchScreenStartPos = touchScreenStartPos;
-        TouchScreenStartPos2 = touchScreenStartPos2;
+        m_InputManager = inputManager;
     }
 
     protected override void InitStates()
     {
-        StatesList.Add(CameraState.Zoom, new CameraZoomState(CameraState.Zoom, this));
-        StatesList.Add(CameraState.Rotation, new CameraRotationState(CameraState.Rotation, this));
+        StatesList.Add(CameraState.Zoom, new CameraZoomState(m_InputManager, CameraState.Zoom, this));
+        StatesList.Add(CameraState.Rotation, new CameraRotationState(m_InputManager, CameraState.Rotation, this));
     }
 }
 

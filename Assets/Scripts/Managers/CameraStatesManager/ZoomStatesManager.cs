@@ -7,11 +7,13 @@ public class ZoomStatesManager : StatesMachine<ZoomState>
 {
     public Vector3 TouchScreenStartPos;
     public Vector3 TouchScreenStartPos2;
+    public InputManager InputManager;
 
-    public ZoomStatesManager(Vector3 touchScreenStartPos, Vector3 touchScreenStartPos2)
+    public ZoomStatesManager(Vector3 touchScreenStartPos, Vector3 touchScreenStartPos2, InputManager inputManager)
     {
         TouchScreenStartPos = touchScreenStartPos;
         TouchScreenStartPos2 = touchScreenStartPos2;
+        InputManager = inputManager;
     }
 
     protected override void InitStates()

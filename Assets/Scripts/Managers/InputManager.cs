@@ -24,6 +24,7 @@ public class InputManager : MonoBehaviour
     private LineRenderer m_CalculatedDirection;
 
     private BallStatesManager m_BallStateManager;
+    private CameraStatesManager m_CameraStatesManager;
 
     private void Start()
     {
@@ -35,6 +36,8 @@ public class InputManager : MonoBehaviour
 
         m_BallStateManager = new BallStatesManager(m_Ball, m_DeadZoneSwingRadius, m_DeadZoneSwingSprite, m_InputZoneBallRadius, m_InputZoneBallSprite, m_MaxDistanceSwing,
                                                    m_MovePassed, m_LineMultiplier, m_InputDirectionRenderer, m_CalculatedDirection);
+
+        m_CameraStatesManager = new CameraStatesManager(this);
 
         m_BallStateManager.CurrentState = m_BallStateManager.StatesList[BallStates.Idle];
     }
@@ -55,6 +58,7 @@ public class InputManager : MonoBehaviour
         bool isTouching = SetState();
 
         m_BallStateManager.CurrentState.OnUpdate();
+        m_CameraStatesManager.CurrentState.OnUpdate();
 
         if (isTouching && CheckInInputZoneBall() && 
            (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved) && 
@@ -120,5 +124,10 @@ public class InputManager : MonoBehaviour
             return true;
         else
             return false;
+    }
+
+    public Touch GetTouch(int index)
+    {
+        return Input.GetTouch(index);
     }
 }
