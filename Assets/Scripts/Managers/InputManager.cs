@@ -56,27 +56,37 @@ public class InputManager : MonoBehaviour
 
         m_BallStateManager.CurrentState.OnUpdate();
 
-        if (isTouching && CheckInInputZoneBall() && (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved)
-            && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
+        if (isTouching && CheckInInputZoneBall() && 
+           (Input.GetTouch(0).phase == TouchPhase.Began || Input.GetTouch(0).phase == TouchPhase.Moved) && 
+           m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
+        {
             ShowHideSprite(m_DeadZoneSwingSprite, m_BallStateManager.m_TouchStartPosition, true);
+        }
     }
 
     private bool SetState()
     {
-        if (Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.touchCount == 1)
         {
-            m_BallStateManager.ChangeState(BallStates.Began);
-            return true;
-        }
-        else if (Input.touchCount == 1 && CheckInInputZoneBall() && Input.GetTouch(0).phase == TouchPhase.Moved)
-        {
-            m_BallStateManager.ChangeState(BallStates.Moved);
-            return true;
-        }
-        else if (Input.touchCount == 1 && CheckInInputZoneBall() && (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled))
-        {
-            m_BallStateManager.ChangeState(BallStates.Ended);
-            return true;
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                m_BallStateManager.ChangeState(BallStates.Began);
+                return true;
+            }
+            else if (Input.touchCount == 1 && CheckInInputZoneBall() && Input.GetTouch(0).phase == TouchPhase.Moved)
+            {
+                m_BallStateManager.ChangeState(BallStates.Moved);
+                return true;
+            }
+            else if (Input.touchCount == 1 && CheckInInputZoneBall() && (Input.GetTouch(0).phase == TouchPhase.Ended || Input.GetTouch(0).phase == TouchPhase.Canceled))
+            {
+                m_BallStateManager.ChangeState(BallStates.Ended);
+                return true;
+            }
+            else
+            {
+                return true;
+            }
         }
         else
         {
