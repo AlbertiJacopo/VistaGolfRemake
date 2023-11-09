@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class ZoomTouchBegan : State<ZoomState>
 {
-    private RotationStatesManager m_RotationStatesManager;
+    private ZoomStatesManager m_ZoomStatesManager;
 
     public ZoomTouchBegan(ZoomState stateID, StatesMachine<ZoomState> stateManager = null) : base(stateID, stateManager)
     {
-        //m_RotationStatesManager = (RotationStatesManager)m_ZoomStateManager;
+        m_ZoomStatesManager = (ZoomStatesManager)stateManager;
     }
 
     public override void OnEnter()
@@ -18,12 +18,13 @@ public class ZoomTouchBegan : State<ZoomState>
 
     }
 
-
     public override void OnUpdate()
     {
         base.OnUpdate();
-        //m_TouchScreenStartPos = touch.position;
-        //m_TouchScreenStartPos2 = touch2.position;
+        //DA SETTARE IL TOUCH
+        m_ZoomStatesManager.TouchScreenStartPos = touch.position;
+        //DA SETTARE IL TOUCH
+        m_ZoomStatesManager.TouchScreenStartPos2 = touch.position;
     }
     public override void OnExit()
     {

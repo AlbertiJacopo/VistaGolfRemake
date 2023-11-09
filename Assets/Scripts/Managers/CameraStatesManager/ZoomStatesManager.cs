@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class ZoomStatesManager : StatesMachine<ZoomState>
 {
-    public Transform PlayerTransform;
+    public Vector3 TouchScreenStartPos;
+    public Vector3 TouchScreenStartPos2;
 
-    public ZoomStatesManager(Transform playerTransform, Dictionary<CameraState, State<CameraState>> stateList = null, State<CameraState> currentState = null, State<CameraState> previousState = null) : base()
-        {
-        PlayerTransform = playerTransform;
-        }
+    public ZoomStatesManager(Vector3 touchScreenStartPos, Vector3 touchScreenStartPos2)
+    {
+        TouchScreenStartPos = touchScreenStartPos;
+        TouchScreenStartPos2 = touchScreenStartPos2;
+    }
 
     protected override void InitStates()
         {
@@ -21,9 +23,4 @@ public class ZoomStatesManager : StatesMachine<ZoomState>
 }
 
 
-public enum ZoomState
-{
-    TouchBegan,
-    TouchMoved,
-    TouchEnded
-}
+

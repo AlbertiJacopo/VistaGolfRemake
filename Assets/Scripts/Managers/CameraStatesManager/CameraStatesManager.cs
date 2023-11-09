@@ -6,23 +6,21 @@ using UnityEngine;
 
 public class CameraStatesManager : StatesMachine<CameraState>
 {
-    public Transform PlayerTransform;
+    public Vector2 TouchScreenStartPos;
+    public Vector2 TouchScreenStartPos2;
 
-    public CameraStatesManager(Transform playerTransform, Dictionary<CameraState, State<CameraState>> stateList = null, State<CameraState> currentState = null, State<CameraState> previousState = null) : base()
+    public CameraStatesManager(Vector2 touchScreenStartPos, Vector2 touchScreenStartPos2)
     {
-        PlayerTransform = playerTransform;
+        TouchScreenStartPos = touchScreenStartPos;
+        TouchScreenStartPos2 = touchScreenStartPos2;
     }
 
     protected override void InitStates()
     {
-        StatesList.Add(CameraState.Zoom, new ZoomState(CameraState.Zoom, this));
-        StatesList.Add(CameraState.Rotation, new RotationState(CameraState.Rotation, this));
+        StatesList.Add(CameraState.Zoom, new CameraZoomState(CameraState.Zoom, this));
+        StatesList.Add(CameraState.Rotation, new CameraRotationState(CameraState.Rotation, this));
     }
 }
 
-public enum CameraState
-{
-    Zoom,
-    Rotation
-}
+
 
