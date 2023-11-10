@@ -2074,7 +2074,7 @@ MonoBehaviour:
   m_DeadZoneSwingSprite: {fileID: 1739735950605539099}
   m_InputZoneBallRadius: 0.95
   m_InputZoneBallSprite: {fileID: 637812187418947332}
-  m_MaxDistanceSwing: 2
+  m_MaxDistanceSwing: 2.4
 --- !u!1 &5077984699859530885
 GameObject:
   m_ObjectHideFlags: 0
