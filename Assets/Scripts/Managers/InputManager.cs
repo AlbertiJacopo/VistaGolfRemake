@@ -13,6 +13,7 @@ public class InputManager : MonoBehaviour
     private Vector3 m_TouchEndPosition = Vector3.zero;
     private Vector2 m_TouchScreenStartPos;
     private Vector2 m_TouchScreenStartPos2;
+    private Vector3 m_TouchTempPosition;
 
     [Header("Ranges")]
     [SerializeField] private float m_DeadZoneSwingRadius;
@@ -26,11 +27,14 @@ public class InputManager : MonoBehaviour
     private LineRenderer m_InputDirectionRenderer;
     private LineRenderer m_CalculatedDirection;
     private float m_RenderDistanceLenght;
+    private bool m_CanFollow = false;
 
     private void Start()
     {
         m_DeadZoneSwingSprite.transform.localScale = new Vector3(m_DeadZoneSwingRadius * 2, m_DeadZoneSwingRadius * 2, 0);
         m_InputZoneBallSprite.transform.localScale = new Vector3(m_InputZoneBallRadius * 2, m_InputZoneBallRadius * 2, 0);
+
+        GameManager.instance.EventManager.Register(Constants.SPAWN_BALL, SetCanFollow);
 
         m_InputDirectionRenderer = m_Ball.transform.GetChild(0).GetComponent<LineRenderer>();
         m_CalculatedDirection = m_Ball.transform.GetChild(1).GetComponent<LineRenderer>();
@@ -41,7 +45,8 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         //tracking player by camera continously
-        GameManager.instance.EventManager.TriggerEvent(Constants.START_CAMERA_TRACKING, m_Ball.position);
+        if (m_CanFollow)
+            GameManager.instance.EventManager.TriggerEvent(Constants.START_CAMERA_TRACKING, m_Ball.position);
 
         //showing graphic part of inputzone if the player is stopeed
         if (m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
@@ -71,7 +76,7 @@ public class InputManager : MonoBehaviour
             {
                 m_TouchStartPosition = touchPosition;
                 m_TouchScreenStartPos = touch.position;
-                m_InputDirectionRenderer.SetPosition(0, m_TouchStartPosition);
+                m_InputDirectionRenderer.SetPosition(0, m_Ball.position);
             }
 
             bool isInInputZone = CheckInInputZoneBall();
@@ -92,7 +97,11 @@ public class InputManager : MonoBehaviour
                 {
                     if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) > m_DeadZoneSwingRadius)
                     {
-                        if(Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) <= m_MaxDistanceSwing)
+                        Vector3 direction = GetTouchWorldSpace(touch) - m_TouchStartPosition;
+                        m_TouchTempPosition = m_TouchStartPosition + (m_DeadZoneSwingRadius * direction.normalized);
+                        m_InputDirectionRenderer.SetPosition(0, m_Ball.position);
+
+                        if (Vector3.Distance(m_TouchStartPosition, GetTouchWorldSpace(touch)) <= m_MaxDistanceSwing)
                             m_TouchEndPosition = GetTouchWorldSpace(touch);
                         else
                         {
@@ -100,7 +109,9 @@ public class InputManager : MonoBehaviour
                             m_TouchEndPosition = m_TouchStartPosition + (m_MaxDistanceSwing * dir.normalized);
                         }
 
-                        m_InputDirectionRenderer.SetPosition(1, m_TouchEndPosition);
+
+
+                        m_InputDirectionRenderer.SetPosition(1, m_TouchEndPosition - (m_TouchTempPosition - m_Ball.position));
 
                         m_MovePassed = true;
 
@@ -118,7 +129,7 @@ public class InputManager : MonoBehaviour
                      && isInInputZone && m_MovePassed
                      && m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
             {
-                GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchStartPosition, m_TouchEndPosition);
+                GameManager.instance.EventManager.TriggerEvent(Constants.MOVEMENT_PLAYER, m_TouchTempPosition, m_TouchEndPosition);
                 m_DeadZoneSwingSprite.SetActive(false);
 
                 GameManager.instance.EventManager.TriggerEvent(Constants.UPDATE_LEVEL_SWINGS);
@@ -203,7 +214,7 @@ public class InputManager : MonoBehaviour
     {
         Vector3 finalPoint = Vector3.zero;
         float actualLenght = 0;
-        Vector3 directionBall = -(m_TouchEndPosition - m_TouchStartPosition);
+        Vector3 directionBall = -(m_TouchEndPosition - m_TouchTempPosition);
         RaycastHit hit;
 
         m_RenderDistanceLenght = directionBall.magnitude * m_LineMultiplier;
@@ -220,7 +231,7 @@ public class InputManager : MonoBehaviour
         {
             actualLenght += Vector3.Distance(m_Ball.position, wallHitPosition[0]);
 
-            Debug.Log("actualLenght: " + actualLenght);
+            //Debug.Log("actualLenght: " + actualLenght);
 
             normal = new Vector3(hit.normal.x, 0f, hit.normal.z);
             //wallHitPosition.Add(hit.point);
@@ -284,5 +295,10 @@ public class InputManager : MonoBehaviour
     {
         m_InputDirectionRenderer.gameObject.SetActive(value);
         m_CalculatedDirection.gameObject.SetActive(value);
+    }
+
+    public void SetCanFollow(object[] param)
+    {
+        m_CanFollow = true;
     }
 }

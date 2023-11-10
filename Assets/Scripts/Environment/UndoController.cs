@@ -20,17 +20,17 @@ public class UndoController : MonoBehaviour
 
     public void Undo(GameObject ball)
     {
-        if(ball.GetComponent<Rigidbody>().velocity.magnitude == 0)
+        if(ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
             ball.transform.position = m_BallPosition;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        GameManager.instance.EventManager.TriggerEvent(Constants.PLAY_SOUND, Constants.SFX_BALLOUT);
+
+        other.gameObject.GetComponent<Rigidbody>().Sleep();
         other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        Debug.Log("velocity pre undo: " + other.gameObject.GetComponent<Rigidbody>().velocity);
         Undo(other.gameObject);
-        Debug.Log("velocity post undo: " + other.gameObject.GetComponent<Rigidbody>().velocity);
         other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        Debug.Log("velocity post reset: " + other.gameObject.GetComponent<Rigidbody>().velocity);
     }
 }

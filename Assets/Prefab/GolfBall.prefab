@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 196617241613288259}
   - component: {fileID: 5187840133735373013}
   - component: {fileID: 6093782527362576102}
+  - component: {fileID: 8527332414287971705}
   - component: {fileID: 1291158460538189407}
   m_Layer: 0
   m_Name: GolfBall
@@ -307,6 +308,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxSpeed: 3
   m_ReducePercentage: 1
+  m_TimeMaxSpeed: 0
+  m_BallAppearTimer: 0
+--- !u!114 &8527332414287971705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3334702844128882193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f330d56e50a3b06428b7d246908e1414, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SpawnPoint: {fileID: 0}
 --- !u!96 &1291158460538189407
 TrailRenderer:
   serializedVersion: 3
@@ -315,7 +331,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3334702844128882193}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

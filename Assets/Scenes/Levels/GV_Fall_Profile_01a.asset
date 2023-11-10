@@ -15,10 +15,10 @@ MonoBehaviour:
   active: 1
   temperature:
     m_OverrideState: 1
-    m_Value: 10
+    m_Value: 7
   tint:
     m_OverrideState: 1
-    m_Value: 18
+    m_Value: 13
 --- !u!114 &-3863532655362999284
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -67,54 +67,7 @@ MonoBehaviour:
   - {fileID: -8888019514134741908}
   - {fileID: 7569079662106785961}
   - {fileID: 6270904621279900314}
-  - {fileID: 688794812562718525}
   - {fileID: 2809819162300036472}
---- !u!114 &688794812562718525
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
-  m_Name: DepthOfField
-  m_EditorClassIdentifier: 
-  active: 1
-  mode:
-    m_OverrideState: 1
-    m_Value: 2
-  gaussianStart:
-    m_OverrideState: 1
-    m_Value: 0
-  gaussianEnd:
-    m_OverrideState: 1
-    m_Value: 227.19
-  gaussianMaxRadius:
-    m_OverrideState: 1
-    m_Value: 1.5
-  highQualitySampling:
-    m_OverrideState: 0
-    m_Value: 0
-  focusDistance:
-    m_OverrideState: 1
-    m_Value: 3.01
-  aperture:
-    m_OverrideState: 1
-    m_Value: 5.9
-  focalLength:
-    m_OverrideState: 1
-    m_Value: 50
-  bladeCount:
-    m_OverrideState: 0
-    m_Value: 5
-  bladeCurvature:
-    m_OverrideState: 0
-    m_Value: 1
-  bladeRotation:
-    m_OverrideState: 0
-    m_Value: 0
 --- !u!114 &2809819162300036472
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -133,10 +86,10 @@ MonoBehaviour:
     m_Value: {x: 0.9570355, y: 1, z: 1, w: 0}
   gamma:
     m_OverrideState: 0
-    m_Value: {x: 0.9516651, y: 1, z: 1, w: 0.102301784}
+    m_Value: {x: 0.93063146, y: 0.91864866, z: 1, w: 0.0133140115}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.9468343, z: 0.9867086, w: 0.30690533}
+    m_Value: {x: 1, y: 0.9240513, z: 0.7971138, w: 0.12235797}
 --- !u!114 &3599293535895933755
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -236,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf1aba9553839d41ae37dd52e9ebcce, type: 3}
   m_Name: MotionBlur
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 0
     m_Value: 0
@@ -264,10 +217,10 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 0.25
+    m_Value: 0.79
   contrast:
     m_OverrideState: 1
-    m_Value: -6
+    m_Value: -5
   colorFilter:
     m_OverrideState: 1
     m_Value: {r: 0.97864187, g: 0.9669811, b: 1, a: 1}
@@ -276,7 +229,7 @@ MonoBehaviour:
     m_Value: 120
   saturation:
     m_OverrideState: 1
-    m_Value: 13
+    m_Value: 10
 --- !u!114 &9115918068716244235
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -292,10 +245,10 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.9478599, z: 0.8940753, w: -0.025575457}
+    m_Value: {x: 1, y: 0.9327094, z: 0.9221393, w: 0.055617444}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.89119905, z: 0.8006364, w: 0.051150896}
+    m_Value: {x: 1, y: 0.82392263, z: 0.8227675, w: 0.0066570104}
   highlights:
     m_OverrideState: 0
     m_Value: {x: 0.87359095, y: 1, z: 0.9741606, w: -0.02557544}

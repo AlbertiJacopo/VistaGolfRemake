@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9052919657350792367}
   - component: {fileID: 1889694218540778665}
   - component: {fileID: 3103489377824023580}
+  - component: {fileID: 1024911620262916932}
   m_Layer: 0
   m_Name: pPlatonic1
   m_TagString: Untagged
@@ -83,6 +84,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1024911620262916932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523554732299534521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1823b3d67df4dbd49bdcef4511b1c362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ReducingAlphaPercent: 0.7
+  m_FadedMaterialName: TransparentMaterial
+  m_MinValue: 0.8
 --- !u!1 &2548980818056544020
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +110,7 @@ GameObject:
   - component: {fileID: 700341994658296872}
   - component: {fileID: 7656901485570837974}
   - component: {fileID: 6947015338577179635}
+  - component: {fileID: 6591302973114915161}
   m_Layer: 0
   m_Name: pCylinder7
   m_TagString: Untagged
@@ -166,6 +183,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6591302973114915161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2548980818056544020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1823b3d67df4dbd49bdcef4511b1c362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ReducingAlphaPercent: 0.7
+  m_FadedMaterialName: TransparentMaterial
+  m_MinValue: 0.8
 --- !u!1 &4226572106804917445
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,6 +209,7 @@ GameObject:
   - component: {fileID: 9149746118750556840}
   - component: {fileID: 3444137469041552210}
   - component: {fileID: 5123866861816465870}
+  - component: {fileID: 2979472026788118886}
   m_Layer: 0
   m_Name: pPlatonic8
   m_TagString: Untagged
@@ -249,6 +282,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2979472026788118886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4226572106804917445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1823b3d67df4dbd49bdcef4511b1c362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ReducingAlphaPercent: 0.7
+  m_FadedMaterialName: TransparentMaterial
+  m_MinValue: 0.8
 --- !u!1 &4246368055563441003
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,6 +344,7 @@ GameObject:
   - component: {fileID: 3307968092884583889}
   - component: {fileID: 6140144882462931401}
   - component: {fileID: 6690277594334549059}
+  - component: {fileID: 5115741216539965850}
   m_Layer: 0
   m_Name: pPlatonic9
   m_TagString: Untagged
@@ -368,6 +417,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5115741216539965850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4334906508451694917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1823b3d67df4dbd49bdcef4511b1c362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ReducingAlphaPercent: 0.7
+  m_FadedMaterialName: TransparentMaterial
+  m_MinValue: 0.8
 --- !u!1 &5159611275947901654
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +443,7 @@ GameObject:
   - component: {fileID: 1264552798735030374}
   - component: {fileID: 2469814450124848306}
   - component: {fileID: 6733421063534235869}
+  - component: {fileID: 8700600099180911409}
   m_Layer: 0
   m_Name: pCylinder6
   m_TagString: Untagged
@@ -451,3 +516,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8700600099180911409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5159611275947901654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1823b3d67df4dbd49bdcef4511b1c362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ReducingAlphaPercent: 0.7
+  m_FadedMaterialName: TransparentMaterial
+  m_MinValue: 0.8

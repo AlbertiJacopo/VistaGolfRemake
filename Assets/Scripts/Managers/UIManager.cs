@@ -8,7 +8,8 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI m_Score;
     [SerializeField] private TextMeshProUGUI m_UISwings;
-
+    [SerializeField] private TextMeshProUGUI m_UITotalSwings;
+    [SerializeField] private TextMeshProUGUI m_UILevelCount;
     private float m_TotalSwingsCount;
     private float m_LevelSwingsCount;
 
@@ -19,8 +20,14 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        GameManager.instance.EventManager.TriggerEvent(Constants.LOAD_FLOAT, Constants.TOTAL_SWINGS);
         GameManager.instance.EventManager.Register(Constants.UPDATE_LEVEL_SWINGS, UpdateLevelSwingsCount);
-        //GameManager.instance.EventManager.Register(Constants.UPDATE_TOTAL_SWINGS, UpdateTotalSwings);
+        //check if it exist a UILevelCount, and if does it sets its text to the current level number
+        if(m_UILevelCount != null)
+		{
+			Scene actualScene = SceneManager.GetActiveScene();
+		    m_UILevelCount.text = (actualScene.buildIndex).ToString();
+		}
     }
 
     /// <summary>
@@ -29,7 +36,8 @@ public class UIManager : MonoBehaviour
     /// <param name="param"></param>
     public void UpdateTotalSwings()
     {
-        m_TotalSwingsCount += m_LevelSwingsCount;
+        GameManager.instance.EventManager.TriggerEvent(Constants.SAVE_FLOAT, Constants.TOTAL_SWINGS, m_TotalSwingsCount);
+        m_UITotalSwings.text = m_TotalSwingsCount.ToString();
     }
 
     /// <summary>
@@ -39,7 +47,7 @@ public class UIManager : MonoBehaviour
     {
         m_TotalSwingsCount -= m_LevelSwingsCount;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
-        
+        UpdateTotalSwings();
     }
 
     /// <summary>
@@ -49,8 +57,9 @@ public class UIManager : MonoBehaviour
     public void UpdateLevelSwingsCount(object[] param)
     {
         m_LevelSwingsCount++;
+        m_TotalSwingsCount++;
         UpdateTotalSwings();
-        m_UISwings.text = "Swings: " + m_LevelSwingsCount.ToString();
+        m_UISwings.text = m_LevelSwingsCount.ToString();
     }
 
     /// <summary>
@@ -68,8 +77,16 @@ public class UIManager : MonoBehaviour
     {
         ToggleUIScreen(m_MainMenuScreen, m_OptionsScreen);
     }
-    
-    public void GoBackFromLevelSelect()
+
+	/// <summary>
+	/// go to option menu from main menu
+	/// </summary>
+	public void GoToOption()
+	{
+		ToggleUIScreen(m_OptionsScreen, m_MainMenuScreen);
+	}
+
+	public void GoBackFromLevelSelect()
     {
         ToggleUIScreen(m_MainMenuScreen, m_LevelSelectScreen);
     }
@@ -127,9 +144,21 @@ public class UIManager : MonoBehaviour
             return;
         }
     }
-
+    /// <summary>
+    /// loads the scene with that name
+    /// </summary>
     public void LoadSceneNumber(string sceneName)
     {
         SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+    }
+
+    public void PlayButtonDownSound()
+    {
+        GameManager.instance.EventManager.TriggerEvent(Constants.PLAY_SOUND, Constants.SFX_PRESS);
+    }
+
+    public void PlayButtonUpSound() 
+    {
+        GameManager.instance.EventManager.TriggerEvent(Constants.PLAY_SOUND, Constants.SFX_LIFT);
     }
 }
