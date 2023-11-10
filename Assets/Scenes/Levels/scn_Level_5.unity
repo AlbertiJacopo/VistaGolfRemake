@@ -15,11 +15,11 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.2, g: 0.28235295, b: 0.32941177, a: 1}
+  m_FogColor: {r: 0.0627451, g: 0.69803923, b: 0.22352941, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
-  m_LinearFogStart: 25.6
-  m_LinearFogEnd: 30.1
+  m_LinearFogStart: 22
+  m_LinearFogEnd: 72
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -5423,7 +5423,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710576, y: -0, z: -0, w: 0.70710784}
   m_LocalPosition: {x: -0.29, y: 1.64, z: -1.61}
-  m_LocalScale: {x: 37.283726, y: 37.283726, z: 37.283726}
+  m_LocalScale: {x: 67.60285, y: 67.60285, z: 67.60285}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 635565611}
@@ -8058,6 +8058,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 3.025
       objectReference: {fileID: 0}
+    - target: {fileID: 1410424399694513699, guid: dcdb523e07c407a45a8f9e97d613046c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cb2f3dcb47540054aa8cf10111d70707, type: 2}
     - target: {fileID: 2090983652315328778, guid: dcdb523e07c407a45a8f9e97d613046c,
         type: 3}
       propertyPath: m_text
@@ -8123,6 +8128,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6722263405134494046, guid: dcdb523e07c407a45a8f9e97d613046c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cb2f3dcb47540054aa8cf10111d70707, type: 2}
     - target: {fileID: 7296425464188904028, guid: dcdb523e07c407a45a8f9e97d613046c,
         type: 3}
       propertyPath: m_Name
@@ -8132,6 +8142,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 7879549304783530297, guid: dcdb523e07c407a45a8f9e97d613046c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cb2f3dcb47540054aa8cf10111d70707, type: 2}
+    - target: {fileID: 8008644037893155962, guid: dcdb523e07c407a45a8f9e97d613046c,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.90588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008644037893155962, guid: dcdb523e07c407a45a8f9e97d613046c,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.90588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008644037893155962, guid: dcdb523e07c407a45a8f9e97d613046c,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.90588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008644037893155962, guid: dcdb523e07c407a45a8f9e97d613046c,
+        type: 3}
+      propertyPath: m_ColorTemperature
+      value: 4152
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
