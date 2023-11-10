@@ -22,13 +22,16 @@ public class MovementComponent : MonoBehaviour
         GameManager.instance.EventManager.Register(Constants.MOVEMENT_PLAYER, Movement);
         m_RigidBody = GetComponent<Rigidbody>();
     }
-    private void Update()
-    {
-        m_LastVelocity = m_RigidBody.velocity;
-    }
+	private void Update()
+	{
+		if (m_RigidBody.velocity.magnitude < 0.1f)
+			m_RigidBody.velocity = Vector3.zero;
+
+		m_LastVelocity = m_RigidBody.velocity;
+	}
 
 
-    public void Movement(object[] param)
+	public void Movement(object[] param)
     {
         GameManager.instance.EventManager.TriggerEvent(Constants.SAVE_BALL_POSITION, gameObject.transform.position);
         GameManager.instance.EventManager.TriggerEvent(Constants.PLAY_SOUND, Constants.SFX_HITBALL);
