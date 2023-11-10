@@ -27,5 +27,6 @@ public class BallController : MonoBehaviour
     public void TeleportBall(object[] param)
     {
         gameObject.transform.position = m_SpawnPoint.position;
-    }
+		GetComponent<TrailRenderer>().enabled = true;
+	}
 }
