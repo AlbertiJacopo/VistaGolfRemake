@@ -31,4 +31,5 @@ public static class Constants
     public static string SFX_WIN = "SFX_Win_01a";
 
     public static string ANIM_START_SINK = "StartSinkingAnimation";
+    public static string SPAWN_BALL = "SpawnBall";
 }

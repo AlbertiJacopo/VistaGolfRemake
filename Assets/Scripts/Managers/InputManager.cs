@@ -27,11 +27,14 @@ public class InputManager : MonoBehaviour
     private LineRenderer m_InputDirectionRenderer;
     private LineRenderer m_CalculatedDirection;
     private float m_RenderDistanceLenght;
+    private bool m_CanFollow = false;
 
     private void Start()
     {
         m_DeadZoneSwingSprite.transform.localScale = new Vector3(m_DeadZoneSwingRadius * 2, m_DeadZoneSwingRadius * 2, 0);
         m_InputZoneBallSprite.transform.localScale = new Vector3(m_InputZoneBallRadius * 2, m_InputZoneBallRadius * 2, 0);
+
+        GameManager.instance.EventManager.Register(Constants.SPAWN_BALL, SetCanFollow);
 
         m_InputDirectionRenderer = m_Ball.transform.GetChild(0).GetComponent<LineRenderer>();
         m_CalculatedDirection = m_Ball.transform.GetChild(1).GetComponent<LineRenderer>();
@@ -42,7 +45,8 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         //tracking player by camera continously
-        GameManager.instance.EventManager.TriggerEvent(Constants.START_CAMERA_TRACKING, m_Ball.position);
+        if (m_CanFollow)
+            GameManager.instance.EventManager.TriggerEvent(Constants.START_CAMERA_TRACKING, m_Ball.position);
 
         //showing graphic part of inputzone if the player is stopeed
         if (m_Ball.GetComponent<Rigidbody>().velocity.magnitude == 0f)
@@ -291,5 +295,10 @@ public class InputManager : MonoBehaviour
     {
         m_InputDirectionRenderer.gameObject.SetActive(value);
         m_CalculatedDirection.gameObject.SetActive(value);
+    }
+
+    public void SetCanFollow(object[] param)
+    {
+        m_CanFollow = true;
     }
 }
